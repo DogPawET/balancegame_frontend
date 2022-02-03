@@ -1,0 +1,35 @@
+.example {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.optionA {
+    width: 75%;
+    height: 450px;
+    border: 5px solid black;
+    margin: 10px;
+
+    background-color: #FFDFDE;
+}
+
+.optionB {
+    width: 75%;
+    height: 450px;
+    border: 5px solid black;
+    margin: 10px;
+
+    background-color: #8DA4CE;
+}
+
+@media screen and (max-width: 768px) {
+    .optionA {
+        height: 200px;
+    }
+
+    .optionB {
+        height: 200px;
+    }
+}
