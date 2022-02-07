@@ -5,6 +5,7 @@
 .layout {
     /*background-color: #D9D9D9;*/
 
+    max-width: 800px;
     width: 80%;
     margin: auto;
 }
