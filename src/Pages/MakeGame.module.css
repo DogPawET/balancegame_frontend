@@ -1,0 +1,89 @@
+/* Wrapper & Upper Part*/
+.makeGame {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    min-height: 1000px;
+    
+    font-family: 'Middleschool_student';
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+.numberDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+/* Question Div */
+.questionDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+    min-height: 750px;
+
+    font-size: 24px;
+}
+
+.skip:link {
+    color: #a6a6a6;
+}
+
+.skip:hover {
+    color: black;
+}
+
+.versus {
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+/* Button Div */
+.buttonDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    font-family: 'Middleschool_student';
+    font-size: 24px;
+    color: white;
+    width: 25%;
+    padding: 1%;
+    margin: 0 1%; 
+    border: none;
+}
+
+.btn:hover {
+    background-color: black;
+    
+    cursor: pointer;
+}
+
+.prevBtn {
+    background-color: #d9d9d9;
+}
+
+.nextBtn {
+    background-color: #a6a6a6;
+}
+
+/* Font */
+@font-face {
+    font-family: 'Middleschool_student';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_08@1.0/Middleschool_student.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
