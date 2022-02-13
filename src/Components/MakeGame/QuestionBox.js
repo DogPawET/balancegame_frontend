@@ -1,7 +1,7 @@
 import styles from './QuestionBox.module.css';
 import { useState, useRef, useLayoutEffect } from 'react';
 
-function QuestionBox({isFormer, text}) {
+function QuestionBox({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text}) {
     const [editMode, setEditMode] = useState(false);
     const inputRef = useRef(null);
     useLayoutEffect(() => {
@@ -9,6 +9,13 @@ function QuestionBox({isFormer, text}) {
             inputRef.current.focus();
         }
     });
+
+    const onClickSelect = () => {
+        if (anotherSelected) {
+            setAnotherSelected(!anotherSelected);
+        }
+        setThisSelected(!thisSelected);
+    }
 
     const onClickEditMode = () => {
         setEditMode(!editMode);
@@ -18,7 +25,14 @@ function QuestionBox({isFormer, text}) {
         <div className={`${styles.questionBox} ${isFormer ? styles.pinkBox : styles.blueBox}`}>
             {!editMode ?
             <div className={styles.wrapperBox}>
-                <span className={isFormer ? styles.defaultPinkText : styles.defaultBlueText}>{text}</span>
+                <span className={`${styles.defaultBox}
+                ${isFormer && !thisSelected && styles.pinkNoSelected}
+                ${isFormer && thisSelected && styles.pinkYesSelected}
+                ${!isFormer && !thisSelected && styles.blueNoSelected}
+                ${!isFormer && thisSelected && styles.blueYesSelected}`}
+                onClick={onClickSelect}>
+                    {text}
+                </span>
                 <span className={styles.editText} onClick={() => {setEditMode(!editMode)}}>선택지 수정하기 📝</span>
             </div>
             :
