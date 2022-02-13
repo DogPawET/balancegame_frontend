@@ -1,10 +1,10 @@
 /* Wrapper & Upper Part*/
-.makeGame {
+.doGame {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 
-    min-height: 100vh;
+    min-height: 90vh;
     
     font-family: 'Middleschool_student';
 }
@@ -30,13 +30,9 @@
     align-items: center;
     justify-content: space-around;
     
-    min-height: 75vh;
+    min-height: 65vh;
 
     font-size: 24px;
-}
-
-.skip:link {
-    color: #a6a6a6;
 }
 
 .versus {
@@ -70,7 +66,7 @@
     background-color: #a6a6a6;
 }
 
-/* Interaction Media*/
+/* Interaction Media */
 @media screen and (max-width: 768px) {
     .title {
         font-size: 24px;
@@ -78,15 +74,11 @@
 }
 
 @media (hover: hover) {
-    .skip:hover {
-        color: black;
-    }
-    
     .btn:hover {
         background-color: black;
         
         cursor: pointer;
-    }
+    }    
 }
 
 /* Font */

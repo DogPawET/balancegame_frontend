@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
-import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
-import styles from './MakeGame.module.css';
+import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
+import styles from './DoGame.module.css';
 
-function MakeGame() {
+function DoGame() {
+    const hostName = "정다은";
     const count = 10;
     const current = 1;
     const [formerSelected, setFormerSelected] = useState(false);
@@ -20,19 +21,18 @@ function MakeGame() {
 
     return (
         <Layout isHeaderOn={true}>
-            <div className={styles.makeGame}>
-                <span className={styles.title}>밸런스게임 만들기 ✍</span>
+            <div className={styles.doGame}>
+                <span className={styles.title}>{hostName}님과의 밸런스 지수 알아보기 🙄</span>
 
                 <div className={styles.numberDiv}>
                     {mapNumber(count, current)}
                 </div>
 
                 <div className={styles.questionDiv}>
-                    <a className={styles.skip} href="/MakeGame">이 문제 건너뛰기 👉</a> 
-                    <QuestionMakingBox key={1} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
+                    <QuestionDoingBox key={1} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
                     setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text="송강 호되게 혼내기" />
                     <span className={styles.versus}>VS</span>
-                    <QuestionMakingBox key={2} isFormer={false} thisSelected={latterSelected} anotherSelected={formerSelected}
+                    <QuestionDoingBox key={2} isFormer={false} thisSelected={latterSelected} anotherSelected={formerSelected}
                     setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text="송강호 되게 혼내기"/>
                 </div>
 
@@ -45,4 +45,4 @@ function MakeGame() {
     );
 }
 
-export default MakeGame;
+export default DoGame;
