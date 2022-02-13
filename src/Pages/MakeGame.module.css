@@ -39,10 +39,6 @@
     color: #a6a6a6;
 }
 
-.skip:hover {
-    color: black;
-}
-
 .versus {
     font-size: 24px;
     font-weight: bolder;
@@ -66,18 +62,23 @@
     border: none;
 }
 
-.btn:hover {
-    background-color: black;
-    
-    cursor: pointer;
-}
-
 .prevBtn {
     background-color: #d9d9d9;
 }
 
 .nextBtn {
     background-color: #a6a6a6;
+}
+
+/* Interaction Media Hover */
+.skip:hover {
+    color: black;
+}
+
+.btn:hover {
+    background-color: black;
+    
+    cursor: pointer;
 }
 
 /* Font */
@@ -87,3 +88,4 @@
     font-weight: normal;
     font-style: normal;
 }
+
