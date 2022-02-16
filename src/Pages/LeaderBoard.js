@@ -2,6 +2,7 @@ import Layout from '../Components/Shared/Layout';
 import trophy from '../Sources/trophy.png';
 import styles from './LeaderBoard.module.css';
 import Medal from '../Components/LeaderBoard/Medal';
+import GradationButton from '../Components/Shared/GradationButton';
 
 function LeaderBoard() {
     const hostName = "정다은";
@@ -40,9 +41,7 @@ function LeaderBoard() {
                         </div>
                     </div>
                 </div>
-                <button className={styles.gradationBtn}>
-                    <span className={styles.btnText}>내 퀴즈 만들어보기</span>
-                </button>
+                <GradationButton text="내 퀴즈 만들어보기"/>
             </div>
         </Layout>
     );

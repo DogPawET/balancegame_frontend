@@ -1,0 +1,49 @@
+.gradationBtn {
+    width: 50%;
+    height: 20%;
+    margin: 2%;
+    padding: 0 0 1% 0;
+    
+    border: 2px solid white;
+    border-radius: 1vw;
+    box-shadow: 2px 2px 2px #a6a6a6;
+    background: linear-gradient(to bottom right, #ffdfde, #8da4ce);
+}
+
+.btnText {
+    color: white;
+    font-family: 'Middleschool_student';
+    font-size: 36px;
+    text-shadow: 2px 2px #d6d6d6;
+}
+
+.gradationBtn:active {
+    box-shadow: none;
+}
+
+/* Interaction Media*/
+@media screen and (max-width: 768px) {
+    .gradationBtn {
+        border-radius: 2vw;
+        border: 1px solid white;
+    }
+
+    .btnText {
+        font-size: 24px;
+
+    }
+}
+
+@media (hover: hover) {
+    .gradationBtn {
+        cursor: pointer;
+    }
+}
+
+/* Font */
+@font-face {
+    font-family: 'Middleschool_student';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_08@1.0/Middleschool_student.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
