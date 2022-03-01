@@ -1,0 +1,36 @@
+.medal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    width: 90%;
+    
+    font-family: 'Middleschool_student';
+    font-size: 50px;
+}
+
+.isGold {
+    width: 5vw;
+    margin: 0vh 1vw 1vh 1vw;
+}
+
+.exceptGold {
+    width: 5vw;
+    margin: 5vh 1vw 1vh 1vw;
+}
+
+/* Interaction Media*/
+@media screen and (max-width: 768px) {
+    .medal {
+        font-size: 24px;
+    }
+}
+
+/* Font */
+@font-face {
+    font-family: 'Middleschool_student';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_08@1.0/Middleschool_student.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
