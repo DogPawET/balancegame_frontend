@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import Example from './Pages/Example';
+import TempHostLogin from './Pages/TempHostLogin';
 import MakeGame from './Pages/MakeGame';
 import DoGame from './Pages/DoGame';
 import ShareLink from './Pages/ShareLink';
@@ -9,7 +9,7 @@ import './App.css';
 function App() {
   return (
     <Routes>
-      <Route path="/example" element={<Example />}/>
+      <Route path="/" element={<TempHostLogin />}/>
       <Route path="/makegame" element={<MakeGame />}/>
       <Route path="/dogame" element={<DoGame />}/>
       <Route path="/sharelink" element={<ShareLink />}/>
