@@ -1,7 +1,7 @@
 import styles from './QuestionMakingBox.module.css';
 import { useState, useRef, useLayoutEffect } from 'react';
 
-function QuestionMakingBox({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text}) {
+function QuestionMakingBox({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text, setText}) {
     const [editMode, setEditMode] = useState(false);
     const inputRef = useRef(null);
     useLayoutEffect(() => {
@@ -17,7 +17,11 @@ function QuestionMakingBox({isFormer, thisSelected, anotherSelected, setThisSele
         setThisSelected(!thisSelected);
     }
 
-    const onClickEditMode = () => {
+    const onChange = (e) => {
+        setText(e.target.value);
+    }
+
+    const confirmEdit = () => {
         setEditMode(!editMode);
     }
 
@@ -37,8 +41,8 @@ function QuestionMakingBox({isFormer, thisSelected, anotherSelected, setThisSele
             </div>
             :
             <div className={styles.wrapperBox}>
-                <textarea className={styles.inputBox} placeholder={text} ref={inputRef}></textarea>
-                <span className={styles.editText} onClick={onClickEditMode}>수정 완료하기 ✅</span>
+                <textarea className={styles.inputBox} placeholder={text} ref={inputRef} onChange={onChange}></textarea>
+                <span className={styles.editText} onClick={confirmEdit}>수정 완료하기 ✅</span>
             </div>
             }
         </div>
