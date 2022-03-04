@@ -6,7 +6,7 @@ import axios from 'axios';
 function TempHostLogin() {
     const [name, setName] = useState("");
     const [questionNumber, setNumber] = useState(3);
-    const current = 1;
+    const index = 1;
 
     // React Router v6부터 useHistory -> useNavigate 로 변경됨
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ function TempHostLogin() {
                     uuid: response.data.uuid,
                     name: name,
                     questionNumber: questionNumber,
-                    current: current,
+                    index: index,
                     answers: [],
                     questions: []
                 }

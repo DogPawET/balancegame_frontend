@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Layout from '../Components/Shared/Layout';
 import styles from './ShareLink.module.css';
 
 function ShareLink() {
+    const link = "https://localhost:link/hahaha";
     const [showCopied, setShowCopied] = useState(false);
 
     const hideCopied = () => {
@@ -25,7 +27,7 @@ function ShareLink() {
                 <div className={styles.wrapperBox}>
                     <div className={styles.linkBox}>
                         <span className={`${styles.description} ${styles.linkText}`}>
-                            https://localhost:link/hahahah
+                            {link}
                         </span>
                     </div>
                     {showCopied ? 
@@ -35,11 +37,13 @@ function ShareLink() {
                     :
                     null
                     }
-                    <button className={styles.gradationBtn} onClick={alertCopied}>
-                        <span className={styles.btnText}>
-                            링크복사 
-                        </span>
-                    </button>
+                    <CopyToClipboard text={link}>
+                        <button className={styles.gradationBtn} onClick={alertCopied}>
+                            <span className={styles.btnText}>
+                                링크복사 
+                            </span>
+                        </button>
+                    </CopyToClipboard>
                 </div>
 
             </div>

@@ -1,23 +1,88 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
 import styles from './DoGame.module.css';
 
 function DoGame() {
+    const navigate = useNavigate();
+
     const hostName = "정다은";
     const count = 10;
-    const current = 1;
+    var index = 1;
+    var answers = [];
+
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
 
-    function mapNumber(count, current) {
+    function mapNumber(count, index) {
         const numbers = [];
         for (let i=1; i<=count; i++) {
-            numbers.push(<QuestionNumber key={i} number={i} activated={i === current ? true : false} />)
+            numbers.push(<QuestionNumber key={i} number={i} activated={i === index ? true : false} />)
         }
         return numbers;
     }
+
+    function goPrev() {
+        navigate(-1);
+    }
+
+    function goNext() {
+        // flag 값은 전자를 선택한 경우 0, 후자를 선택한 경우 1
+        var flag;
+        if (formerSelected) { flag = 0; }
+        else { flag = 1; }
+
+        // 현재 문제에 대한 응답 저장
+        answers.push(flag);
+
+        // session storage에 answers 값 업데이트
+        var storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
+        if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
+            storedAnswers[index-1] = flag; // 선택을 변경했을 수 있으므로 업데이트
+            window.sessionStorage.setItem("answers", JSON.stringify(storedAnswers));
+        }
+        else { // 그 외
+            window.sessionStorage.setItem("answers", JSON.stringify(answers));
+        }
+
+        // 마지막 문제까지 응답한 경우 sessionStorage clear 및 resultpage로 props 넘겨주며 이동
+        /* 구현 예정
+        if (index == questionNumber) {
+        }
+        */
+
+        // 다음 문제가 있을 경우 dogame 컴포넌트 새로 렌더링
+        navigate("/dogame");
+        /* state 추가할 예정 */
+    }
+
+    useEffect(() => {
+        // 이전 버튼 (뒤로 가기) 클릭 시 이전 선택 기록이 남아있을 수 있도록 session storage로 answers 따로 관리
+        if (window.sessionStorage.getItem("answers") == null) {
+            window.sessionStorage.setItem("answers", JSON.stringify([]));
+        }
+
+        var storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
+        if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
+            if (storedAnswers[index-1] == 0) { // 전자를 선택한 경우
+                setFormerSelected(true);
+                setLatterSelected(false);
+            }
+            else { // 후자를 선택한 경우
+                setFormerSelected(false);
+                setLatterSelected(true);
+            }
+        }
+
+        else { // 아직 응답하지 않은 문제일 경우
+            setFormerSelected(false);
+            setLatterSelected(false);
+        }
+    }, [index])
+
+
 
     return (
         <Layout isHeaderOn={true}>
@@ -25,7 +90,7 @@ function DoGame() {
                 <span className={styles.title}>{hostName}님과의 밸런스 지수 알아보기 🙄</span>
 
                 <div className={styles.numberDiv}>
-                    {mapNumber(count, current)}
+                    {mapNumber(count, index)}
                 </div>
 
                 <div className={styles.questionDiv}>
@@ -37,8 +102,11 @@ function DoGame() {
                 </div>
 
                 <div className={styles.buttonDiv}>
-                    <button className={`${styles.btn} ${styles.prevBtn}`}>이전</button>
-                    <button className={`${styles.btn} ${styles.nextBtn}`}>다음</button>
+                    {index != 1 ? <button className={`${styles.btn} ${styles.abledBtn}`} onClick={goPrev}>이전</button> : null}
+                    {!formerSelected && !latterSelected
+                    ? <button className={`${styles.btn} ${styles.disabledBtn}`} disabled>다음</button> 
+                    : <button className={`${styles.btn} ${styles.abledBtn}`} onClick={goNext}>다음</button>
+                    }
                 </div>
             </div>
         </Layout>

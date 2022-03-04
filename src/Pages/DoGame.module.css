@@ -58,11 +58,11 @@
     border: none;
 }
 
-.prevBtn {
+.disabledBtn {
     background-color: #d9d9d9;
 }
 
-.nextBtn {
+.abledBtn {
     background-color: #a6a6a6;
 }
 
@@ -74,7 +74,7 @@
 }
 
 @media (hover: hover) {
-    .btn:hover {
+    .abledBtn:hover {
         background-color: black;
         
         cursor: pointer;
