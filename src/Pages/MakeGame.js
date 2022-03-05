@@ -7,7 +7,10 @@ import styles from './MakeGame.module.css';
 import axios from 'axios';
 
 function MakeGame() {
+    // 🚨 state로 받아올 것 : uuid, name(host), questionNumber, index, answers, questions
     const navigate = useNavigate();
+
+    /* 📌 useLocation 활용하여 state 받아오는 방법 참고 */
     const location = useLocation();
     const uuid = location.state.uuid;
     const name = location.state.name;
@@ -15,6 +18,7 @@ function MakeGame() {
     var index = location.state.index;
     var answers = location.state.answers;
     var questions = location.state.questions;
+    /**************************************************/
 
     const [former, setFormer] = useState("송강 호되게 혼내기");
     const [latter, setLatter] = useState("송강호 되게 혼내기");

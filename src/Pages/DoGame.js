@@ -6,6 +6,7 @@ import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
 import styles from './DoGame.module.css';
 
 function DoGame() {
+    // 🚨 state로 받아올 것 : guestName 및 밸런스게임 질문 찾기 GET api의 responses (hostName, questions가 담긴 배열)
     const navigate = useNavigate();
 
     const hostName = "정다은";

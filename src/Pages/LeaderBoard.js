@@ -1,18 +1,30 @@
+import { useState, useEffect } from 'react';
 import Layout from '../Components/Shared/Layout';
 import trophy from '../Sources/trophy.png';
 import styles from './LeaderBoard.module.css';
 import Medal from '../Components/LeaderBoard/Medal';
 import GradationButton from '../Components/Shared/GradationButton';
+import axios from 'axios';
 
 function LeaderBoard() {
-    const hostName = "정다은";
-    const firstPlace = "양덕관";
-    const secondPlace = "남민정";
-    const thirdPlace = "배지수";
+    // 🚨 state로 받아올 것 : uuid
+    const uuid = "67aa93f7-f5e4-4ba5-a5ae-4451e1813abb";
 
-    const ranks = [1, 2, 3, 4, 5];
-    const names = ["양덕관", "남민정", "배지수", "황주현", "장세연"];
-    const percents = ["100%", "98%", "94%", "90%", "80%"];
+    const [hostName, setHostName] = useState("");
+    const [guest, setGuest] = useState([]);
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        axios.get(`http://localhost:80/api/${uuid}/leader-board`)
+        .then((response) => {
+            console.log(response);
+
+            setHostName(response.data.hostName);
+            setGuest(response.data.guest.reverse());
+            setCount(response.data.guest.length);
+        })
+        .catch((error) => { console.log(error); })
+    }, []);
 
     return (
         <Layout isHeaderOn={true}>
@@ -21,23 +33,23 @@ function LeaderBoard() {
                 <span className={styles.title}>{hostName}님과의 찰떡궁합 명예의전당</span>
                 <div className={styles.wrapperBox}>
                     <div className={styles.medalDiv}>
-                    <Medal color="silver" name={secondPlace}/>
-                    <Medal color="gold" name={firstPlace}/>
-                    <Medal color="bronze" name={thirdPlace}/>
+                    <Medal color="silver" name={count >= 2 ? guest[1].name : "-"}/>
+                    <Medal color="gold" name={count >= 1 ? guest[0].name : "-"}/>
+                    <Medal color="bronze" name={count >= 3 ? guest[2].name : "-"}/>
                     </div>
                     <hr className={styles.line}/>
                     <div className={styles.rankDiv}>
                         <div className={styles.list}>
                             <span className={styles.listTitle}>순위</span>
-                            {ranks.map((rank) => (<span>{rank}</span>))}
+                            {guest.map((arr, index) => (<span key={index}>{index+1}</span>))}
                         </div>
                         <div className={styles.list}>
                             <span className={styles.listTitle}>이름</span>
-                            {names.map((name) => (<span>{name}</span>))}
+                            {guest.map((arr, index) => (<span key={index}>{arr.name}</span>))}
                         </div>
                         <div className={styles.list}>
                             <span className={styles.listTitle}>궁합지수</span>
-                            {percents.map((percent) => (<span>{percent}</span>))}
+                            {guest.map((arr, index) => (<span key={index}>{arr.percentage}%</span>))}
                         </div>
                     </div>
                 </div>
