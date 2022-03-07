@@ -29,7 +29,7 @@ function LeaderBoard() {
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.leaderBoard}>
-                <img className={styles.trophyImg} src={trophy} alt="Trophy Image"/>
+                <img className={styles.trophyImg} src={trophy} alt="Trophy"/>
                 <span className={styles.title}>{hostName}님과의 찰떡궁합 명예의전당</span>
                 <div className={styles.wrapperBox}>
                     <div className={styles.medalDiv}>

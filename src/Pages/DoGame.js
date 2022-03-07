@@ -40,7 +40,7 @@ function DoGame() {
 
         // session storage에 answers 값 업데이트
         let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
-        if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
+        if (storedAnswers !== null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
             storedAnswers[index-1] = flag; // 선택을 변경했을 수 있으므로 업데이트
             window.sessionStorage.setItem("answers", JSON.stringify(storedAnswers));
         }
@@ -61,13 +61,13 @@ function DoGame() {
 
     useEffect(() => {
         // 이전 버튼 (뒤로 가기) 클릭 시 이전 선택 기록이 남아있을 수 있도록 session storage로 answers 따로 관리
-        if (window.sessionStorage.getItem("answers") == null) {
+        if (window.sessionStorage.getItem("answers") === null) {
             window.sessionStorage.setItem("answers", JSON.stringify([]));
         }
 
         let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
-        if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
-            if (storedAnswers[index-1] == 0) { // 전자를 선택한 경우
+        if (storedAnswers !== null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
+            if (storedAnswers[index-1] === 0) { // 전자를 선택한 경우
                 setFormerSelected(true);
                 setLatterSelected(false);
             }
@@ -103,7 +103,7 @@ function DoGame() {
                 </div>
 
                 <div className={styles.buttonDiv}>
-                    {index != 1 ? <button className={`${styles.btn} ${styles.abledBtn}`} onClick={goPrev}>이전</button> : null}
+                    {index !== 1 ? <button className={`${styles.btn} ${styles.abledBtn}`} onClick={goPrev}>이전</button> : null}
                     {!formerSelected && !latterSelected
                     ? <button className={`${styles.btn} ${styles.disabledBtn}`} disabled>다음</button> 
                     : <button className={`${styles.btn} ${styles.abledBtn}`} onClick={goNext}>다음</button>
