@@ -15,9 +15,9 @@ function MakeGame() {
     const uuid = location.state.uuid;
     const name = location.state.name;
     const questionNumber = location.state.questionNumber;
-    var index = location.state.index;
-    var answers = location.state.answers;
-    var questions = location.state.questions;
+    let index = location.state.index;
+    let answers = location.state.answers;
+    let questions = location.state.questions;
     /**************************************************/
 
     const [former, setFormer] = useState("송강 호되게 혼내기");
@@ -39,7 +39,7 @@ function MakeGame() {
 
     function goNext() {
         // flag 값은 전자를 선택한 경우 0, 후자를 선택한 경우 1
-        var flag;
+        let flag;
         if (formerSelected) { flag = 0; }
         else { flag = 1; }
 
@@ -51,7 +51,7 @@ function MakeGame() {
         });
 
         // session storage에 answers 값 업데이트
-        var storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
+        let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
         if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
             storedAnswers[index-1] = flag; // 선택을 변경했을 수 있으므로 업데이트
             window.sessionStorage.setItem("answers", JSON.stringify(storedAnswers));
@@ -102,7 +102,7 @@ function MakeGame() {
             window.sessionStorage.setItem("answers", JSON.stringify([]));
         }
 
-        var storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
+        let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
         if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
             if (storedAnswers[index-1] == 0) { // 전자를 선택한 경우
                 setFormerSelected(true);

@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function LeaderBoard() {
     // 🚨 state로 받아올 것 : uuid
-    const uuid = "67aa93f7-f5e4-4ba5-a5ae-4451e1813abb";
+    const uuid = "7b2e5a24-dc23-460e-a8c9-a156c98da5ec";
 
     const [hostName, setHostName] = useState("");
     const [guest, setGuest] = useState([]);

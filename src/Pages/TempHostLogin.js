@@ -41,11 +41,11 @@ function TempHostLogin() {
     
     /* 임시 게스트 등록 */
     const postGuest = () => {
-        var guestAnswers = [0,1,0,1,0];
+        let guestAnswers = [1,0,1,0,1];
         axios.post("http://localhost:80/api/guest", {
             answers: guestAnswers,
             name: "hehe",
-            uuid: "67aa93f7-f5e4-4ba5-a5ae-4451e1813abb"
+            uuid: "7b2e5a24-dc23-460e-a8c9-a156c98da5ec"
         })
         .then((response) => { console.log(response); })
         .catch((error) => { console.log(error); })

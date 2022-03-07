@@ -11,8 +11,8 @@ function DoGame() {
 
     const hostName = "정다은";
     const count = 10;
-    var index = 1;
-    var answers = [];
+    let index = 1;
+    let answers = [];
 
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
@@ -31,7 +31,7 @@ function DoGame() {
 
     function goNext() {
         // flag 값은 전자를 선택한 경우 0, 후자를 선택한 경우 1
-        var flag;
+        let flag;
         if (formerSelected) { flag = 0; }
         else { flag = 1; }
 
@@ -39,7 +39,7 @@ function DoGame() {
         answers.push(flag);
 
         // session storage에 answers 값 업데이트
-        var storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
+        let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
         if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
             storedAnswers[index-1] = flag; // 선택을 변경했을 수 있으므로 업데이트
             window.sessionStorage.setItem("answers", JSON.stringify(storedAnswers));
@@ -65,7 +65,7 @@ function DoGame() {
             window.sessionStorage.setItem("answers", JSON.stringify([]));
         }
 
-        var storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
+        let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
         if (storedAnswers != null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
             if (storedAnswers[index-1] == 0) { // 전자를 선택한 경우
                 setFormerSelected(true);
