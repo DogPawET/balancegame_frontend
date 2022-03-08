@@ -2,7 +2,7 @@ import logo from '../../Sources/logo.png';
 import dogpaw from '../../Sources/dogpaw.png'
 import styles from './Header.module.css';
 
-function Header() {
+const Header = () => {
     return (
         <div className={styles.header}>
             <div className={styles[`left-tab`]}>

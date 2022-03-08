@@ -1,7 +1,7 @@
 import styles from './QuestionMakingBox.module.css';
 import { useState, useRef, useLayoutEffect } from 'react';
 
-function QuestionMakingBox({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text, setText}) {
+const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text, setText}) => {
     const [editMode, setEditMode] = useState(false);
     const inputRef = useRef(null);
     useLayoutEffect(() => {

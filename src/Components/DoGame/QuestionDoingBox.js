@@ -1,6 +1,6 @@
 import styles from './QuestionDoingBox.module.css';
 
-function QuestionDoingBox({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text}) {
+const QuestionDoingBox = ({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text}) => {
     const onClickSelect = () => {
         if (anotherSelected) {
             setAnotherSelected(!anotherSelected);

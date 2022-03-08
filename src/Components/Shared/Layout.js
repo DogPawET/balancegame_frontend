@@ -1,7 +1,7 @@
 import Header from './Header';
 import styles from './Layout.module.css'
 
-function Layout({children, isHeaderOn}) {
+const Layout = ({children, isHeaderOn}) => {
     return (
         <div className={styles.container}>
             { isHeaderOn ? <Header /> : null }

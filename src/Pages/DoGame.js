@@ -5,7 +5,7 @@ import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
 import styles from './DoGame.module.css';
 
-function DoGame() {
+ const DoGame = () => {
     // 🚨 state로 받아올 것 : guestName 및 밸런스게임 질문 찾기 GET api의 responses (hostName, questions가 담긴 배열)
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ function DoGame() {
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
 
-    function mapNumber(count, index) {
+    const mapNumber = (count, index) => {
         const numbers = [];
         for (let i=1; i<=count; i++) {
             numbers.push(<QuestionNumber key={i} number={i} activated={i === index ? true : false} />)
@@ -25,11 +25,11 @@ function DoGame() {
         return numbers;
     }
 
-    function goPrev() {
+    const goPrev = () => {
         navigate(-1);
     }
 
-    function goNext() {
+    const goNext = () => {
         // flag 값은 전자를 선택한 경우 0, 후자를 선택한 경우 1
         let flag;
         if (formerSelected) { flag = 0; }

@@ -4,7 +4,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Layout from '../Components/Shared/Layout';
 import styles from './ShareLink.module.css';
 
-function ShareLink() {
+const ShareLink = () => {
     const location = useLocation();
     const uuid = location.state.uuid;
     const name = location.state.name;

@@ -6,7 +6,7 @@ import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
 import styles from './MakeGame.module.css';
 import axios from 'axios';
 
-function MakeGame() {
+const MakeGame = () => {
     // 🚨 state로 받아올 것 : uuid, name(host), questionNumber, index, answers, questions
     const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ function MakeGame() {
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
 
-    function mapNumber() {
+    const mapNumber = () =>{
         const numbers = [];
         for (let i=1; i<=questionNumber; i++) {
             numbers.push(<QuestionNumber key={i} number={i} activated={i === index ? true : false} />)
@@ -33,11 +33,11 @@ function MakeGame() {
         return numbers;
     }
 
-    function goPrev() {
+    const goPrev = () => {
         navigate(-1);
     }
 
-    function goNext() {
+    const goNext = () => {
         // flag 값은 전자를 선택한 경우 0, 후자를 선택한 경우 1
         let flag;
         if (formerSelected) { flag = 0; }

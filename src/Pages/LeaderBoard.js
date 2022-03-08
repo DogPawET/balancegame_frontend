@@ -6,9 +6,9 @@ import Medal from '../Components/LeaderBoard/Medal';
 import GradationButton from '../Components/Shared/GradationButton';
 import axios from 'axios';
 
-function LeaderBoard() {
+const LeaderBoard = () => {
     // 🚨 state로 받아올 것 : uuid
-    const uuid = "7b2e5a24-dc23-460e-a8c9-a156c98da5ec";
+    const uuid = "ffb4af25-fd55-4279-b137-9481a665d234";
 
     const [hostName, setHostName] = useState("");
     const [guest, setGuest] = useState([]);

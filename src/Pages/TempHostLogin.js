@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-function TempHostLogin() {
+const TempHostLogin = () => {
     // React Router v6부터 useHistory -> useNavigate 로 변경됨
     const navigate = useNavigate();
 
@@ -41,11 +41,11 @@ function TempHostLogin() {
     
     /* 임시 게스트 등록 */
     const postGuest = () => {
-        let guestAnswers = [1,0,1,0,1];
+        let guestAnswers = [1,0,1,0,1,1,0,1,0,1];
         axios.post("http://localhost:80/api/guest", {
             answers: guestAnswers,
             name: "hehe",
-            uuid: "7b2e5a24-dc23-460e-a8c9-a156c98da5ec"
+            uuid: "ffb4af25-fd55-4279-b137-9481a665d234"
         })
         .then((response) => { console.log(response); })
         .catch((error) => { console.log(error); })

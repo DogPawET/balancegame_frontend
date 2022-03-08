@@ -6,7 +6,7 @@ import ShareLink from './Pages/ShareLink';
 import LeaderBoard from './Pages/LeaderBoard';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <Routes>
       <Route path="/" element={<TempHostLogin />}/>

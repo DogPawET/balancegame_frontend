@@ -1,6 +1,6 @@
 import styles from './GradationButton.module.css';
 
-function GradationButton({text}) {
+const GradationButton = ({text}) => {
     return (
         <button className={styles.gradationBtn}>
             <span className={styles.btnText}>{text}</span>
