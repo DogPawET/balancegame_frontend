@@ -1,13 +1,15 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Layout from '../Components/Shared/Layout';
 import styles from './ShareLink.module.css';
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { userInfoState, indexState, hostGameState } from "../_recoil/state";
 
 const ShareLink = () => {
-    const location = useLocation();
-    const uuid = location.state.uuid;
-    const name = location.state.name;
+    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [index, setIndex] = useRecoilState(indexState);
+    const [hostGame, setHostGame] = useRecoilState(hostGameState);
 
     const link = "https://localhost:link/hahaha";
     const [showCopied, setShowCopied] = useState(false);
@@ -21,10 +23,27 @@ const ShareLink = () => {
         setTimeout(hideCopied, 2000);
     }
 
+    const postGame = async () => {
+        axios.post("http://localhost:80/api/balanceGame", {
+            answers: hostGame.answers,
+            questions: hostGame.questions,
+            uuid: userInfo.uuid,
+        })
+        .then((response) => {
+            setIndex(1);
+        }).catch ((error) => {
+            console.log(error);
+        }) 
+    }
+
+    useEffect(() => {
+        postGame();
+    }, []);
+
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.shareLink}>
-                <span className={styles.title}>💖 {name}님의 밸런스게임이 완성 되었습니다 💖</span>
+                <span className={styles.title}>💖 {userInfo.name}님의 밸런스게임이 완성 되었습니다 💖</span>
                 <span className={styles.description}>친구들에게도 공유해보세요!
                     <br/>링크에서 친구들의 순위도 확인할 수 있습니다 😉
                 </span>

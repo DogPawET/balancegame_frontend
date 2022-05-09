@@ -4,21 +4,17 @@ import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
 import styles from './MakeGame.module.css';
-import axios from 'axios';
+import { useRecoilState } from "recoil";
+import { userInfoState, indexState, hostGameState, makingOptsState } from "../_recoil/state";
+
 
 const MakeGame = () => {
-    // 🚨 state로 받아올 것 : uuid, name(host), questionNumber, index, answers, questions
     const navigate = useNavigate();
-
-    /* 📌 useLocation 활용하여 state 받아오는 방법 참고 */
-    const location = useLocation();
-    const uuid = location.state.uuid;
-    const name = location.state.name;
-    const questionNumber = location.state.questionNumber;
-    let index = location.state.index;
-    let answers = location.state.answers;
-    let questions = location.state.questions;
-    /**************************************************/
+    // 🚨 state로 받아올 것 : uuid, name(host), questionCount, index, answers, questions
+    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [index, setIndex] = useRecoilState(indexState);
+    const [hostGame, setHostGame] = useRecoilState(hostGameState);
+    const [makingOpts, setMakingOpts] = useRecoilState(makingOptsState);
 
     const [former, setFormer] = useState("송강 호되게 혼내기");
     const [latter, setLatter] = useState("송강호 되게 혼내기");
@@ -27,14 +23,14 @@ const MakeGame = () => {
 
     const mapNumber = () =>{
         const numbers = [];
-        for (let i=1; i<=questionNumber; i++) {
+        for (let i=1; i<=userInfo.questionCount; i++) {
             numbers.push(<QuestionNumber key={i} number={i} activated={i === index ? true : false} />)
         }
         return numbers;
     }
 
     const goPrev = () => {
-        navigate(-1);
+        setIndex(index-1);
     }
 
     const goNext = () => {
@@ -44,68 +40,55 @@ const MakeGame = () => {
         else { flag = 1; }
 
         // 현재 문제에 대한 문제 및 응답 저장
-        answers.push(flag);
-        questions.push({
-            firstOption: former,
-            secondOption: latter
-        });
+        
+        let updatedOpts = [...makingOpts];
+        if (makingOpts !== null && makingOpts.length >= index) {
+            updatedOpts[index-1] = flag;
 
-        // session storage에 answers 값 업데이트
-        let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
-        if (storedAnswers !== null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
-            storedAnswers[index-1] = flag; // 선택을 변경했을 수 있으므로 업데이트
-            window.sessionStorage.setItem("answers", JSON.stringify(storedAnswers));
+            let tempAnswers = [...hostGame.answers];
+            let tempQuestions = [...hostGame.questions];
+            tempAnswers[index-1] = flag;
+            tempQuestions[index-1] = {
+                firstOption: former,
+                secondOption: latter,
+            }
+            setHostGame({
+                answers: tempAnswers,
+                questions: tempQuestions,
+            });
         }
-        else { // 그 외
-            window.sessionStorage.setItem("answers", JSON.stringify(answers));
+        else {
+            updatedOpts.push(flag);
+            setHostGame({
+                answers: [
+                    ...hostGame.answers,
+                    flag,
+                ],
+                questions: [
+                    ...hostGame.questions,
+                    {
+                        firstOption: former,
+                        secondOption: latter,
+                    }
+                ]
+            });
         }
+        setMakingOpts(updatedOpts);
+        console.log(hostGame);
 
         // 마지막 문제까지 응답한 경우 POST 후 sessionStorage clear 및 sharelink 페이지로 이동
         // console.log("type check", typeof index, typeof questionNumber);
-        if (index === parseInt(questionNumber)) {
-            axios.post("http://localhost:80/api/balanceGame", {
-                answers: answers,
-                questions: questions,
-                uuid: uuid
-            })
-            .then((response) => {
-                console.log(response);
-                window.sessionStorage.clear();
-                navigate(
-                    "/sharelink", {
-                        state: {
-                            uuid: uuid, 
-                            name: name
-                        }
-                    }
-                )
-            })
-            .catch((error) => {console.log(error)})
+        if (index === parseInt(userInfo.questionCount)) {
+            navigate("/sharelink"); // setIndex(1);
         }
 
         // 다음 문제가 있을 경우 makegame 컴포넌트 새로 렌더링
-        navigate(
-            "/makegame", {
-            state: {
-                uuid: uuid,
-                name: name,
-                questionNumber: questionNumber,
-                index: index+1,
-                answers: answers,
-                questions: questions
-            }
-        })
+        setIndex(index+1);
     }
 
     useEffect(() => {
-        // 이전 버튼 (뒤로 가기) 클릭 시 이전 선택 기록이 남아있을 수 있도록 session storage로 answers 따로 관리
-        if (window.sessionStorage.getItem("answers") === null) {
-            window.sessionStorage.setItem("answers", JSON.stringify([]));
-        }
-
-        let storedAnswers = JSON.parse(window.sessionStorage.getItem("answers"));
-        if (storedAnswers !== null && storedAnswers.length >= index) { // 이미 응답한 문제일 경우
-            if (storedAnswers[index-1] === 0) { // 전자를 선택한 경우
+        if (makingOpts !== null && makingOpts.length >= index) { // 이미 응답한 문제일 경우
+            if (makingOpts[index-1] === 0) { // 전자를 선택한 경우
                 setFormerSelected(true);
                 setLatterSelected(false);
             }
@@ -119,12 +102,12 @@ const MakeGame = () => {
             setFormerSelected(false);
             setLatterSelected(false);
         }
-    }, [index])
+    }, [index, makingOpts])
 
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.makeGame}>
-                <span className={styles.title}>{name}님만의 밸런스게임 만들기 ✍</span>
+                <span className={styles.title}>{userInfo.name}님만의 밸런스게임 만들기 ✍</span>
 
                 <div className={styles.numberDiv}>
                     {mapNumber()}
