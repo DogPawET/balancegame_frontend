@@ -30,6 +30,7 @@ const HostLogin = () => {
                 uuid: response.data.uuid,
                 name: name,
                 questionCount: questionCount,
+                type: "host",
             })
             navigate("/makegame");
         })
