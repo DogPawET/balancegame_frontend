@@ -6,21 +6,34 @@ import styles from "./HostLogin.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
 import { Input } from 'antd';
 import { useRecoilState } from "recoil";
-import { userInfoState } from "../_recoil/state";
-
+import { userInfoState, guestGameState } from "../_recoil/state";
+import axios from "axios";
 
 const GuestLogin = () => {
     const navigate = useNavigate();
-    const [hostId, setHostId] = useState("hostId");
+    const [hostId, setHostId] = useState("5a76d4d8-9f6b-412d-b6ef-04e5670a403a");
     const [hostName, setHostName] = useState("hostName");
     const [name, setName] = useState("");
     const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [guestGame, setGuestGame] = useRecoilState(guestGameState);
 
-    const onClickGame = () => {
-        setUserInfo({
-            uuid: hostId,
-            name: name,
-            type: "guest",
+    const onClickGame = async () => {
+        await axios.get(`http://localhost:80/api/${hostId}/questions`)
+        .then ((response) => {
+            console.log(response);
+            setGuestGame({
+                hostId: hostId,
+                hostName: response.data.hostName,
+                questions: response.data.questions,
+            });
+            setUserInfo({
+                uuid: "guest",
+                name: name,
+                type: "guest",
+            });
+        })
+        .catch ((error) => {
+            console.log(error);
         });
         navigate("/dogame");
     }

@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
+import axios from "axios";
 import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
 import styles from './DoGame.module.css';
 import { useRecoilState } from "recoil";
-import { indexState, doingOptsState } from "../_recoil/state";
+import { indexState, doingOptsState, guestGameState, userInfoState } from "../_recoil/state";
 
  const DoGame = () => {
     // 🚨 state로 받아올 것 : guestName 및 밸런스게임 질문 찾기 GET api의 responses (hostName, questions가 담긴 배열)
     const [index, setIndex] = useRecoilState(indexState);
     const [doingOpts, setDoingOpts] = useRecoilState(doingOptsState);
-
-    const hostName = "정다은";
-    const count = 10;
+    const [guestGame, setGuestGame] = useRecoilState(guestGameState);
+    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
@@ -27,6 +27,19 @@ import { indexState, doingOptsState } from "../_recoil/state";
 
     const goPrev = () => {
         setIndex(index-1);
+    }
+
+    const postGuest = async (updatedOpts) => {
+        console.log(updatedOpts);
+        console.log(userInfo.name);
+        console.log(guestGame.hostId);
+        await axios.post("http://localhost:80/api/guest", {
+            answers: updatedOpts,
+            name: userInfo.name,
+            uuid: guestGame.hostId,
+        })
+        .then((response) => { console.log(response); })
+        .catch((error) => { console.log(error); })
     }
 
     const goNext = () => {
@@ -47,6 +60,11 @@ import { indexState, doingOptsState } from "../_recoil/state";
         }
         setDoingOpts(updatedOpts);
         console.log(doingOpts);
+
+        // 마지막 문제까지 응답한 경우
+        if (index === parseInt(guestGame.questions.length)) {
+            postGuest(updatedOpts);
+        }
 
         // 다음 문제가 있을 경우 dogame 컴포넌트 새로 렌더링
         setIndex(index+1);
@@ -73,10 +91,10 @@ import { indexState, doingOptsState } from "../_recoil/state";
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.doGame}>
-                <span className={styles.title}>{hostName}님과의 밸런스 지수 알아보기 🙄</span>
+                <span className={styles.title}>{guestGame.hostName}님과의 밸런스 지수 알아보기 🙄</span>
 
                 <div className={styles.numberDiv}>
-                    {mapNumber(count, index)}
+                    {mapNumber(guestGame.questions.length, index)}
                 </div>
 
                 <div className={styles.questionDiv}>

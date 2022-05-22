@@ -18,6 +18,15 @@ export const hostGameState = atom({
     },
 });
 
+export const guestGameState = atom({
+    key: "guestGame",
+    default: {
+        hostId: "",
+        hostName: "",
+        questions: [],
+    }
+})
+
 export const makingOptsState = atom({
     key: "makingOpts",
     default: [],

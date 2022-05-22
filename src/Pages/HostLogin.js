@@ -32,6 +32,7 @@ const HostLogin = () => {
                 questionCount: questionCount,
                 type: "host",
             })
+            console.log(response.data.uuid);
             navigate("/makegame");
         })
         .catch((error) => { console.log(error.response); })
