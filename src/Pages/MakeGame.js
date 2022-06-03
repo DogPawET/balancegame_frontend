@@ -5,13 +5,13 @@ import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
 import styles from './MakeGame.module.css';
 import { useRecoilState } from "recoil";
-import { userInfoState, indexState, hostGameState, makingOptsState } from "../_recoil/state";
+import { hostInfoState, indexState, hostGameState, makingOptsState } from "../_recoil/state";
 
 
 const MakeGame = () => {
     const navigate = useNavigate();
     // 🚨 state로 받아올 것 : uuid, name(host), questionCount, index, answers, questions
-    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [hostInfo, setHostInfo] = useRecoilState(hostInfoState);
     const [index, setIndex] = useRecoilState(indexState);
     const [hostGame, setHostGame] = useRecoilState(hostGameState);
     const [makingOpts, setMakingOpts] = useRecoilState(makingOptsState);
@@ -23,7 +23,7 @@ const MakeGame = () => {
 
     const mapNumber = () =>{
         const numbers = [];
-        for (let i=1; i<=userInfo.questionCount; i++) {
+        for (let i=1; i<=hostInfo.questionCount; i++) {
             numbers.push(<QuestionNumber key={i} number={i} activated={i === index ? true : false} />)
         }
         return numbers;
@@ -78,7 +78,7 @@ const MakeGame = () => {
 
         // 마지막 문제까지 응답한 경우 POST 후 sessionStorage clear 및 sharelink 페이지로 이동
         // console.log("type check", typeof index, typeof questionNumber);
-        if (index === parseInt(userInfo.questionCount)) {
+        if (index === parseInt(hostInfo.questionCount)) {
             navigate("/sharelink"); // setIndex(1);
         }
 
@@ -107,7 +107,7 @@ const MakeGame = () => {
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.makeGame}>
-                <span className={styles.title}>{userInfo.name}님만의 밸런스게임 만들기 ✍</span>
+                <span className={styles.title}>{hostInfo.name}님만의 밸런스게임 만들기 ✍</span>
 
                 <div className={styles.numberDiv}>
                     {mapNumber()}

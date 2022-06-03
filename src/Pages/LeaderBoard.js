@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import Layout from '../Components/Shared/Layout';
 import trophy from '../Sources/trophy.png';
 import styles from './LeaderBoard.module.css';
@@ -8,14 +9,14 @@ import axios from 'axios';
 
 const LeaderBoard = () => {
     // 🚨 state로 받아올 것 : uuid
-    const uuid = "ffb4af25-fd55-4279-b137-9481a665d234";
+    const location = useLocation();
 
     const [hostName, setHostName] = useState("");
     const [guest, setGuest] = useState([]);
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        axios.get(`http://localhost:80/api/${uuid}/leader-board`)
+        axios.get(`http://localhost:80/api/${location.state.uuid}/leader-board`)
         .then((response) => {
             console.log(response);
 

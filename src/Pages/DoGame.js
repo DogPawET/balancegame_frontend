@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
 import styles from './DoGame.module.css';
 import { useRecoilState } from "recoil";
-import { indexState, doingOptsState, guestGameState, userInfoState } from "../_recoil/state";
+import { indexState, doingOptsState, guestGameState, guestInfoState, resultState } from "../_recoil/state";
 
  const DoGame = () => {
     // 🚨 state로 받아올 것 : guestName 및 밸런스게임 질문 찾기 GET api의 responses (hostName, questions가 담긴 배열)
     const [index, setIndex] = useRecoilState(indexState);
     const [doingOpts, setDoingOpts] = useRecoilState(doingOptsState);
     const [guestGame, setGuestGame] = useRecoilState(guestGameState);
-    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [guestInfo, setGuestInfo] = useRecoilState(guestInfoState);
+    const [result, setResult] = useRecoilState(resultState);
 
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
+
+    const navigate = useNavigate();
 
     const mapNumber = (count, index) => {
         const numbers = [];
@@ -31,14 +35,21 @@ import { indexState, doingOptsState, guestGameState, userInfoState } from "../_r
 
     const postGuest = async (updatedOpts) => {
         console.log(updatedOpts);
-        console.log(userInfo.name);
+        console.log(guestInfo.name);
         console.log(guestGame.hostId);
         await axios.post("http://localhost:80/api/guest", {
             answers: updatedOpts,
-            name: userInfo.name,
+            name: guestInfo.name,
             uuid: guestGame.hostId,
         })
-        .then((response) => { console.log(response); })
+        .then((response) => {
+            console.log(response);
+            navigate("/result", {
+                state: {
+                    result: response.data,
+                }
+            })
+        })
         .catch((error) => { console.log(error); })
     }
 
