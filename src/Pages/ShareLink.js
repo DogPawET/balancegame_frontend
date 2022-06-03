@@ -4,14 +4,13 @@ import Layout from '../Components/Shared/Layout';
 import styles from './ShareLink.module.css';
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { userInfoState, indexState, hostGameState } from "../_recoil/state";
+import { hostInfoState, indexState, hostGameState } from "../_recoil/state";
 
 const ShareLink = () => {
-    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [hostInfo, setHostInfo] = useRecoilState(hostInfoState);
     const [index, setIndex] = useRecoilState(indexState);
     const [hostGame, setHostGame] = useRecoilState(hostGameState);
 
-    const link = "https://localhost:link/hahaha";
     const [showCopied, setShowCopied] = useState(false);
 
     const hideCopied = () => {
@@ -27,13 +26,13 @@ const ShareLink = () => {
         axios.post("http://localhost:80/api/balanceGame", {
             answers: hostGame.answers,
             questions: hostGame.questions,
-            uuid: userInfo.uuid,
+            uuid: hostInfo.uuid,
         })
         .then((response) => {
             setIndex(1);
         }).catch ((error) => {
             console.log(error);
-        }) 
+        });
     }
 
     useEffect(() => {
@@ -43,7 +42,7 @@ const ShareLink = () => {
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.shareLink}>
-                <span className={styles.title}>💖 {userInfo.name}님의 밸런스게임이 완성 되었습니다 💖</span>
+                <span className={styles.title}>💖 {hostInfo.name}님의 밸런스게임이 완성 되었습니다 💖</span>
                 <span className={styles.description}>친구들에게도 공유해보세요!
                     <br/>링크에서 친구들의 순위도 확인할 수 있습니다 😉
                 </span>
@@ -51,7 +50,7 @@ const ShareLink = () => {
                 <div className={styles.wrapperBox}>
                     <div className={styles.linkBox}>
                         <span className={`${styles.description} ${styles.linkText}`}>
-                            {link}
+                            {`http://localhost:3000/balance-game/${hostInfo.uuid}`}
                         </span>
                     </div>
                     {showCopied ? 
@@ -61,7 +60,7 @@ const ShareLink = () => {
                     :
                     null
                     }
-                    <CopyToClipboard text={link}>
+                    <CopyToClipboard text={`http://localhost:3000/balance-game/${hostInfo.uuid}`}>
                         <button className={styles.gradationBtn} onClick={alertCopied}>
                             <span className={styles.btnText}>
                                 링크복사 

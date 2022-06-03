@@ -8,7 +8,7 @@ import GradationButton from '../Components/Shared/GradationButton';
 import { Input } from 'antd';
 import { Select } from 'antd';
 import { useRecoilState } from "recoil";
-import { userInfoState } from "../_recoil/state";
+import { hostInfoState } from "../_recoil/state";
 
 const { Option } = Select;
 
@@ -16,7 +16,7 @@ const HostLogin = () => {
     const navigate = useNavigate();
     const [name, setName] = useState("");
     const [questionCount, setQuestionCount] = useState(3);
-    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [hostInfo, setHostInfo] = useRecoilState(hostInfoState);
 
     const handleStart = async () => {
         await axios.post("http://localhost:80/api/host", {
@@ -26,7 +26,7 @@ const HostLogin = () => {
         .then((response) => {
             console.log(response);
             
-            setUserInfo({
+            setHostInfo({
                 uuid: response.data.uuid,
                 name: name,
                 questionCount: questionCount,

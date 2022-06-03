@@ -1,23 +1,25 @@
-import React, { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
 import styles from "./HostLogin.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
 import { Input } from 'antd';
 import { useRecoilState } from "recoil";
-import { userInfoState, guestGameState } from "../_recoil/state";
+import { guestInfoState, guestGameState } from "../_recoil/state";
 import axios from "axios";
 
 const GuestLogin = () => {
     const navigate = useNavigate();
-    const [hostId, setHostId] = useState("5a76d4d8-9f6b-412d-b6ef-04e5670a403a");
+    const params = useParams();
+
+    const [hostId, setHostId] = useState(params.uuid);
     const [hostName, setHostName] = useState("hostName");
     const [name, setName] = useState("");
-    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [guestInfo, setGuestInfo] = useRecoilState(guestInfoState);
     const [guestGame, setGuestGame] = useRecoilState(guestGameState);
 
-    const onClickGame = async () => {
+    const getInfos = async () => {
         await axios.get(`http://localhost:80/api/${hostId}/questions`)
         .then ((response) => {
             console.log(response);
@@ -26,21 +28,31 @@ const GuestLogin = () => {
                 hostName: response.data.hostName,
                 questions: response.data.questions,
             });
-            setUserInfo({
-                uuid: "guest",
-                name: name,
-                type: "guest",
-            });
+            setHostName(response.data.hostName);
         })
         .catch ((error) => {
             console.log(error);
+        });
+    }
+
+    const onClickGame = () => {
+        setGuestInfo({
+            name: name,
         });
         navigate("/dogame");
     }
 
     const onClickRank = () => {
-        navigate("/leaderboard");
+        navigate("/leaderboard", {
+            state: {
+                uuid: params.uuid,
+            }
+        });
     }
+
+    useEffect(() => {
+        getInfos();
+    }, []);
 
     return (
         <Layout isHeaderOn={false}>

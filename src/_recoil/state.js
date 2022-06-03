@@ -1,9 +1,14 @@
 import { atom } from "recoil";
 
-export const userInfoState = atom({
-    key: "userInfo",
+export const hostInfoState = atom({
+    key: "hostInfo",
     default: {},
-})
+});
+
+export const guestInfoState = atom({
+    key: "guestInfo",
+    default: {},
+});
 
 export const indexState = atom({
     key: "index",
@@ -25,15 +30,14 @@ export const guestGameState = atom({
         hostName: "",
         questions: [],
     }
-})
+});
 
 export const makingOptsState = atom({
     key: "makingOpts",
     default: [],
-})
+});
 
 export const doingOptsState = atom({
     key: "doingOpts",
     default: [],
 });
-
