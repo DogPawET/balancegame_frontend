@@ -15,6 +15,11 @@ export const indexState = atom({
     default: 1,
 });
 
+export const questionListState = atom({
+    key: "questionList",
+    default: [],
+})
+
 export const hostGameState = atom({
     key: "hostGame",
     default: {

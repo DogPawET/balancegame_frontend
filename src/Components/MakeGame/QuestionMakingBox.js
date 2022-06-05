@@ -1,9 +1,16 @@
 import styles from './QuestionMakingBox.module.css';
 import { useState, useRef, useLayoutEffect } from 'react';
+import { useRecoilState } from "recoil";
+import { indexState, questionListState } from "../../_recoil/state";
 
-const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text, setText}) => {
+const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text}) => {
+    const [index, setIndex] = useRecoilState(indexState);
+    const [questionList, setQuestionList] = useRecoilState(questionListState);
+
+    const [value, setValue] = useState("");
     const [editMode, setEditMode] = useState(false);
     const inputRef = useRef(null);
+
     useLayoutEffect(() => {
         if (inputRef.current !== null) {
             inputRef.current.focus();
@@ -18,10 +25,20 @@ const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSele
     }
 
     const onChange = (e) => {
-        setText(e.target.value);
+        setValue(e.target.value);
     }
 
     const confirmEdit = () => {
+        if (value) {
+            let questions = [...questionList];
+            let question = {...questions[index-1]};
+            isFormer ? question[0] = value : question[1] = value;
+            questions.splice(index-1, 1, question);
+            console.log(questions);
+            setQuestionList(questions);
+        }
+        
+
         setEditMode(!editMode);
     }
 

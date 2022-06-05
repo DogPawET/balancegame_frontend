@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Layout from '../Components/Shared/Layout';
@@ -8,7 +8,8 @@ import GradationButton from '../Components/Shared/GradationButton';
 import { Input } from 'antd';
 import { Select } from 'antd';
 import { useRecoilState } from "recoil";
-import { hostInfoState } from "../_recoil/state";
+import { hostInfoState, questionListState } from "../_recoil/state";
+import QuestionList from "../QuestionList";
 
 const { Option } = Select;
 
@@ -17,6 +18,7 @@ const HostLogin = () => {
     const [name, setName] = useState("");
     const [questionCount, setQuestionCount] = useState(3);
     const [hostInfo, setHostInfo] = useRecoilState(hostInfoState);
+    const [questionList, setQuestionList] = useRecoilState(questionListState);
 
     const handleStart = async () => {
         await axios.post("http://localhost:80/api/host", {
@@ -32,7 +34,18 @@ const HostLogin = () => {
                 questionCount: questionCount,
                 type: "host",
             })
-            console.log(response.data.uuid);
+            // console.log(response.data.uuid);
+
+            let questions = [];
+            const indexes = Array(45).fill().map((v, i) => i);
+            for (let i=0; i<questionCount; i++) {
+                const randomIdx = Math.floor(Math.random() * indexes.length);
+                const randomQuestion = QuestionList[indexes.splice(randomIdx, 1)[0]];
+                questions.push(randomQuestion);
+            }
+            console.log(questions);
+            setQuestionList(questions);
+            
             navigate("/makegame");
         })
         .catch((error) => { console.log(error.response); })

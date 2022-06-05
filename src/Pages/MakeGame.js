@@ -5,8 +5,7 @@ import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
 import styles from './MakeGame.module.css';
 import { useRecoilState } from "recoil";
-import { hostInfoState, indexState, hostGameState, makingOptsState } from "../_recoil/state";
-
+import { hostInfoState, indexState, hostGameState, makingOptsState, questionListState } from "../_recoil/state";
 
 const MakeGame = () => {
     const navigate = useNavigate();
@@ -15,9 +14,8 @@ const MakeGame = () => {
     const [index, setIndex] = useRecoilState(indexState);
     const [hostGame, setHostGame] = useRecoilState(hostGameState);
     const [makingOpts, setMakingOpts] = useRecoilState(makingOptsState);
+    const [questionList, setQuestionList] = useRecoilState(questionListState);
 
-    const [former, setFormer] = useState("송강 호되게 혼내기");
-    const [latter, setLatter] = useState("송강호 되게 혼내기");
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
 
@@ -49,8 +47,8 @@ const MakeGame = () => {
             let tempQuestions = [...hostGame.questions];
             tempAnswers[index-1] = flag;
             tempQuestions[index-1] = {
-                firstOption: former,
-                secondOption: latter,
+                firstOption: questionList[index-1][0],
+                secondOption: questionList[index-1][1],
             }
             setHostGame({
                 answers: tempAnswers,
@@ -67,8 +65,8 @@ const MakeGame = () => {
                 questions: [
                     ...hostGame.questions,
                     {
-                        firstOption: former,
-                        secondOption: latter,
+                        firstOption: questionList[index-1][0],
+                        secondOption: questionList[index-1][1],
                     }
                 ]
             });
@@ -102,7 +100,7 @@ const MakeGame = () => {
             setFormerSelected(false);
             setLatterSelected(false);
         }
-    }, [index, makingOpts])
+    }, [index, makingOpts, questionList])
 
     return (
         <Layout isHeaderOn={true}>
@@ -116,10 +114,10 @@ const MakeGame = () => {
                 <div className={styles.questionDiv}>
                     <a className={styles.skip} href="/MakeGame">이 문제 건너뛰기 👉</a> 
                     <QuestionMakingBox key={index} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
-                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={former} setText={setFormer}/>
+                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={questionList[index-1][0]}/>
                     <span className={styles.versus}>VS</span>
                     <QuestionMakingBox key={index+10} isFormer={false} thisSelected={latterSelected} anotherSelected={formerSelected}
-                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={latter} setText={setLatter}/>
+                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={questionList[index-1][1]}/>
                 </div>
 
                 <div className={styles.buttonDiv}>

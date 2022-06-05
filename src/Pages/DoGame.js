@@ -6,7 +6,7 @@ import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
 import styles from './DoGame.module.css';
 import { useRecoilState } from "recoil";
-import { indexState, doingOptsState, guestGameState, guestInfoState, resultState } from "../_recoil/state";
+import { indexState, doingOptsState, guestGameState, guestInfoState } from "../_recoil/state";
 
  const DoGame = () => {
     // 🚨 state로 받아올 것 : guestName 및 밸런스게임 질문 찾기 GET api의 responses (hostName, questions가 담긴 배열)
@@ -14,7 +14,6 @@ import { indexState, doingOptsState, guestGameState, guestInfoState, resultState
     const [doingOpts, setDoingOpts] = useRecoilState(doingOptsState);
     const [guestGame, setGuestGame] = useRecoilState(guestGameState);
     const [guestInfo, setGuestInfo] = useRecoilState(guestInfoState);
-    const [result, setResult] = useRecoilState(resultState);
 
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
@@ -110,10 +109,10 @@ import { indexState, doingOptsState, guestGameState, guestInfoState, resultState
 
                 <div className={styles.questionDiv}>
                     <QuestionDoingBox key={0} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
-                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text="송강 호되게 혼내기" />
+                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={guestGame.questions[index-1]?.firstOption}/>
                     <span className={styles.versus}>VS</span>
                     <QuestionDoingBox key={1} isFormer={false} thisSelected={latterSelected} anotherSelected={formerSelected}
-                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text="송강호 되게 혼내기"/>
+                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={guestGame.questions[index-1]?.secondOption}/>
                 </div>
 
                 <div className={styles.buttonDiv}>
