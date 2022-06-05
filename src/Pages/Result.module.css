@@ -42,3 +42,10 @@
 .hidden {
     color: white;
 }
+
+.question {
+    width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

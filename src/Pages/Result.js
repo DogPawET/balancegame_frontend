@@ -9,6 +9,7 @@ const Result = () => {
     const [guestInfo, setGuestInfo] = useRecoilState(guestInfoState);
     const [guestGame, setGuestGame] = useRecoilState(guestGameState);
     const location = useLocation();
+    const result = location.state.result;
 
     /*
     const guestInfo = {
@@ -41,11 +42,11 @@ const Result = () => {
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.result}>
-                <p className={styles.title}>{guestGame.hostName} 밸런스게임 {guestInfo.name}의 결과</p>
+                <p className={styles.title}>{result.hostName} 밸런스게임 {result.guestName}의 결과</p>
                 <p>
-                    <span className={`${styles.pink} ${styles[`sub-title`]}`}>N개</span>
+                    <span className={`${styles.pink} ${styles[`sub-title`]}`}>{result.score}개</span>
                     <span className={styles[`sub-title`]}>/</span>
-                    <span className={`${styles.blue} ${styles[`sub-title`]}`}>M문제 중</span>
+                    <span className={`${styles.blue} ${styles[`sub-title`]}`}>{guestGame.questions.length}문제 중</span>
                 </p>
                 <div className={styles.table}>
                     <div className={styles.col}>
@@ -53,8 +54,8 @@ const Result = () => {
                         {guestGame.questions.map((value, index) => {
                             return (
                                 <div key={index}>
-                                    <div>{value.firstOption}</div>
-                                    <div>{value.secondOption}</div>
+                                    <div className={styles.question}>{value.firstOption}</div>
+                                    <div className={styles.question}>{value.secondOption}</div>
                                 </div>
                             );
                         })}
