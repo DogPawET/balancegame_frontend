@@ -6,16 +6,17 @@ import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
 import styles from '../Styles/MakeGame.module.css';
 import { useRecoilState, useRecoilValue } from "recoil";
 import { hostInfoState, indexState, hostGameState, makingOptsState, questionListState } from "../_recoil/state";
+import QuestionList from '../QuestionList';
 
 const MakeGame = () => {
     const navigate = useNavigate();
 
     const hostInfo = useRecoilValue(hostInfoState);
-    const questionList = useRecoilValue(questionListState);
-
+    
     const [index, setIndex] = useRecoilState(indexState);
     const [hostGame, setHostGame] = useRecoilState(hostGameState);
     const [makingOpts, setMakingOpts] = useRecoilState(makingOptsState);
+    const [questionList, setQuestionList] = useRecoilState(questionListState);
     
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
@@ -78,11 +79,30 @@ const MakeGame = () => {
         // 마지막 문제까지 응답한 경우 POST 후 sessionStorage clear 및 sharelink 페이지로 이동
         // console.log("type check", typeof index, typeof questionNumber);
         if (index === parseInt(hostInfo.questionCount)) {
-            navigate(`/share-link/${hostInfo.uuid}`); // setIndex(1);
+            navigate("/share-link"); // setIndex(1);
         }
 
         // 다음 문제가 있을 경우 makegame 컴포넌트 새로 렌더링
         setIndex(index+1);
+    }
+
+    const onSkip = () => {
+        let questions = [...questionList];
+        while (1) {
+            let isValid = true;
+            let randomIdx = Math.floor(Math.random() * 45);
+            let randomQuestion = QuestionList[randomIdx];
+            questions.forEach((value, index) => {
+                if (JSON.stringify(value) === JSON.stringify(randomQuestion)) {
+                    isValid = false;
+                }
+            })
+            if (isValid) {
+                questions[index-1] = randomQuestion;
+                break;
+            }
+        }
+        setQuestionList(questions);
     }
 
     useEffect(() => {
@@ -113,7 +133,7 @@ const MakeGame = () => {
                 </div>
 
                 <div className={styles.questionDiv}>
-                    <a className={styles.text} href="/MakeGame">이 문제 건너뛰기 👉</a> 
+                    <p className={styles.skip} onClick={onSkip}>이 문제 건너뛰기 👉</p> 
                     <QuestionMakingBox key={index} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
                     setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={questionList[index-1][0]}/>
                     <span className={styles.versus}>VS</span>

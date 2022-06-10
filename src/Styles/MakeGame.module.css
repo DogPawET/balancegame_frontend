@@ -32,8 +32,14 @@
     min-height: 75vh;
 }
 
-.text:link {
+.text {
     color: #a6a6a6;
+}
+
+.skip {
+    color: gray;
+    font-style: italic;
+    text-decoration: underline;
 }
 
 .versus {
@@ -69,6 +75,10 @@
     .title {
         font-size: 36px;
     }
+    
+    .skip {
+        font-size: 24px;
+    }
 
     .text {
         font-size: 24px;
@@ -84,6 +94,10 @@
         font-size: 32px;
     }
 
+    .skip {
+        font-size: 20px;
+    }
+
     .text {
         font-size: 20px;
     }
@@ -96,6 +110,10 @@
 @media screen and (max-width: 768px) {
     .title {
         font-size: 28px;
+    }
+
+    .skip {
+        font-size: 16px;
     }
     
     .text {
@@ -111,6 +129,10 @@
     .title {
         font-size: 24px;
     }
+
+    .skip {
+        font-size: 12px;
+    }
     
     .text {
         font-size: 12px;
@@ -122,13 +144,17 @@
 }
 
 @media (hover: hover) {
+    .skip:hover {
+        color: black;
+        cursor: pointer;
+    }
+
     .text:hover {
         color: black;
     }
     
     .abledBtn:hover {
         background-color: black;
-        
         cursor: pointer;
     }
 }
