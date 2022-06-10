@@ -13,9 +13,9 @@ const App = () => {
     <Routes>
       <Route path="/" element={<HostLogin />}/>
       <Route path="/balance-game/:uuid" element={<GuestLogin />}/>
-      <Route path="/build/:uuid" element={<MakeGame />}/>
-      <Route path="/play/:uuid" element={<DoGame />}/>
-      <Route path="/share-link/:uuid" element={<ShareLink />}/>
+      <Route path="/build" element={<MakeGame />}/>
+      <Route path="/play" element={<DoGame />}/>
+      <Route path="/share-link" element={<ShareLink />}/>
       <Route path="/leader-board/:uuid" element={<LeaderBoard />}/>
       <Route path="/result" element={<Result />}/>
     </Routes>

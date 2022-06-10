@@ -39,7 +39,7 @@ const HostLogin = () => {
             }
             setQuestionList(questions);
             
-            navigate(`/build/${response.data.uuid}`);
+            navigate("/build");
         })
         .catch((error) => { console.log(error.response); })
     }

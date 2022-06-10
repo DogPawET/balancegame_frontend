@@ -39,7 +39,7 @@ const GuestLogin = () => {
         setGuestInfo({
             name: watch("name"),
         });
-        navigate(`/play/${hostId}`);
+        navigate("/play");
     }
 
     const onClickRank = () => {
