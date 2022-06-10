@@ -1,13 +1,14 @@
-.login-wrapper {
+.wrapper {
     min-height: 100vh;
-
+    padding: 5vh 0;
+    
     display: flex;
     flex-direction: column;
     align-items: center;    
     justify-content: space-evenly;
 }
 
-.login-title {
+.title-div {
     min-height: 30vh;
     display: flex;
     flex-direction: column;
@@ -16,32 +17,108 @@
     text-align: center;
 }
 
-.login-logo {
-    width: 250px;
-}
-
-.main-title {
-    font-size: 36px;
-}
-
-.sub-title {
-    font-size: 18px;
-}
-
-.login-content {
+.logo {
     width: 50%;
-    height: 40vh;
+    margin-bottom: 2.5vh;
+}
+.content-div {
+    width: 80%;
+    min-height: 40vh;
+    padding: 5vh 0;
+    margin: 5vh 0;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     text-align: center;
     
     border: 1px solid #a6a6a6;
     border-radius: 10px;
 }
 
-.content-text {
-    font-size: 18px;
+.text {
+    margin-bottom: 5px;
+}
+
+.input {
+    height: 40px;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #a6a6a6;
+}
+
+.count {
+    text-align: center;
+}
+
+.errors {
+    margin-bottom: 20px;
+    color: red;
+}
+
+@media screen and (min-width: 1025px) {
+    .title {
+        font-size: 36px;
+    }
+
+    .text {
+        font-size: 24px;
+    }
+
+    .input {
+        width: 400px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .input {
+        width: 400px;
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 28px;
+    }
+    
+
+    .text {
+        font-size: 16px;
+    }
+
+    .input {
+        width: 300px;
+        height: 30px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+    
+    .text {
+        font-size: 12px;
+    }
+
+    .input {
+        width: 200px;
+        height: 20px;
+        font-size: 12px;
+    }
 }
