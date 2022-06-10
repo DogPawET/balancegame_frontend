@@ -1,4 +1,4 @@
-import styles from './GradationButton.module.css';
+import styles from '../../Styles/GradationButton.module.css';
 
 const GradationButton = ({text, onClick}) => {
     return (

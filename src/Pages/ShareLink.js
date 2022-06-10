@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Layout from '../Components/Shared/Layout';
-import styles from './ShareLink.module.css';
+import styles from '../Styles/ShareLink.module.css';
 import axios from "axios";
 import { useRecoilState } from "recoil";
 import { hostInfoState, indexState, hostGameState } from "../_recoil/state";

@@ -1,4 +1,4 @@
-import styles from './QuestionNumber.module.css';
+import styles from '../../Styles/QuestionNumber.module.css';
 
 const QuestionNumber = ({number, activated}) => {
     return (

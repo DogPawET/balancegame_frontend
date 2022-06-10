@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import Layout from '../Components/Shared/Layout';
 import trophy from '../Sources/trophy.png';
-import styles from './LeaderBoard.module.css';
+import styles from '../Styles/LeaderBoard.module.css';
 import Medal from '../Components/LeaderBoard/Medal';
 import GradationButton from '../Components/Shared/GradationButton';
 import axios from 'axios';

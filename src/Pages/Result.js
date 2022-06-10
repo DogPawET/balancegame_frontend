@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Layout from '../Components/Shared/Layout';
-import styles from "./Result.module.css";
+import styles from "../Styles/Result.module.css";
 import { useRecoilState } from "recoil";
 import { guestInfoState, guestGameState } from "../_recoil/state";
 

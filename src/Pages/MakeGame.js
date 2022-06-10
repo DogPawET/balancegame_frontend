@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
-import styles from './MakeGame.module.css';
+import styles from '../Styles/MakeGame.module.css';
 import { useRecoilState } from "recoil";
 import { hostInfoState, indexState, hostGameState, makingOptsState, questionListState } from "../_recoil/state";
 

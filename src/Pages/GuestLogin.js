@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
-import styles from "./HostLogin.module.css";
+import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
 import { Input } from 'antd';
 import { useRecoilState } from "recoil";

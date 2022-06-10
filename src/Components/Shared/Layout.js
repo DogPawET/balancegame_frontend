@@ -1,5 +1,5 @@
 import Header from './Header';
-import styles from './Layout.module.css'
+import styles from '../../Styles/Layout.module.css'
 
 const Layout = ({children, isHeaderOn}) => {
     return (

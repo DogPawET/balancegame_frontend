@@ -13,7 +13,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<HostLogin />}/>
       <Route path="/balance-game/:uuid" element={<GuestLogin />}/>
-      <Route path="/makegame" element={<MakeGame />}/>
+      <Route path="/build/:uuid" element={<MakeGame />}/>
       <Route path="/dogame" element={<DoGame />}/>
       <Route path="/sharelink" element={<ShareLink />}/>
       <Route path="/leaderboard" element={<LeaderBoard />}/>

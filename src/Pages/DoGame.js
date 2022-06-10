@@ -4,7 +4,7 @@ import axios from "axios";
 import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
-import styles from './DoGame.module.css';
+import styles from '../Styles/DoGame.module.css';
 import { useRecoilState } from "recoil";
 import { indexState, doingOptsState, guestGameState, guestInfoState } from "../_recoil/state";
 

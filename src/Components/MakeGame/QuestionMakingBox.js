@@ -1,4 +1,4 @@
-import styles from './QuestionMakingBox.module.css';
+import styles from '../../Styles/QuestionMakingBox.module.css';
 import { useState, useRef, useLayoutEffect } from 'react';
 import { useRecoilState } from "recoil";
 import { indexState, questionListState } from "../../_recoil/state";

@@ -1,4 +1,4 @@
-import styles from './QuestionDoingBox.module.css';
+import styles from '../../Styles/QuestionDoingBox.module.css';
 
 const QuestionDoingBox = ({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text}) => {
     const onClickSelect = () => {

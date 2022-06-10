@@ -1,6 +1,6 @@
 import logo from '../../Sources/logo.png';
 import dogpaw from '../../Sources/dogpaw.png'
-import styles from './Header.module.css';
+import styles from '../../Styles/Header.module.css';
 
 const Header = () => {
     return (

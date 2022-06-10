@@ -1,4 +1,4 @@
-import styles from './Medal.module.css';
+import styles from '../../Styles/Medal.module.css';
 import goldMedal from '../../Sources/goldMedal.png';
 import silverMedal from '../../Sources/silverMedal.png';
 import bronzeMedal from '../../Sources/bronzeMedal.png';

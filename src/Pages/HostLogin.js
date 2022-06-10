@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
-import styles from "./HostLogin.module.css";
+import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
 import { useSetRecoilState } from "recoil";
 import { hostInfoState, questionListState } from "../_recoil/state";
@@ -39,7 +39,7 @@ const HostLogin = () => {
             }
             setQuestionList(questions);
             
-            navigate("/makegame");
+            navigate(`/build/${response.data.uuid}`);
         })
         .catch((error) => { console.log(error.response); })
     }
