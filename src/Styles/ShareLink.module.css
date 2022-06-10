@@ -1,0 +1,102 @@
+.shareLink {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 100%;
+    min-height: 50vh;
+    padding: 20vh 0;
+    
+}
+
+.title {
+    width: 80%;
+    text-align: center;
+}
+
+.description {
+    width: 80%;
+    word-break: break-all;
+    text-align: center;
+}
+
+.wrapperBox {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 80%;
+    min-height: 20vh;
+    padding: 5vh;
+    margin: 2vh;
+
+    border: 2px solid #a6a6a6;
+    border-radius: 2%;
+    box-shadow: 5px 5px 2px #d9d9d9;
+}
+
+.linkBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 75%;
+    padding: 1vh 1vw;
+
+    border-radius: 1vw;
+    background-color: #d9d9d9;
+}
+
+.linkText {
+    width: 90%;
+    word-break: break-all;
+    color: #a6a6a6;
+}
+
+.copiedText {
+    color: #a6a6a6;
+}
+
+@media screen and (min-width: 1025px) {
+    .title {
+        font-size: 36px;
+    }
+
+    .description {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .description {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 28px;
+    }
+
+    .description {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+    
+    .description {
+        font-size: 12px;
+    }
+}

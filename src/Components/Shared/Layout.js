@@ -1,14 +1,16 @@
 import Header from './Header';
-import styles from './Layout.module.css'
+import styles from '../../Styles/Layout.module.css'
 
-function Layout({children, isHeaderOn}) {
+const Layout = ({children, isHeaderOn}) => {
     return (
+        <>
+        { isHeaderOn ? <Header /> : null }
         <div className={styles.container}>
-            { isHeaderOn ? <Header /> : null }
             <div className={styles.layout}>
                 {children}
             </div>
         </div>
+        </>
     );
 }
 
