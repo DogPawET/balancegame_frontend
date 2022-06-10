@@ -12,7 +12,6 @@
 
 .btnText {
     color: white;
-    font-family: 'Middleschool_student';
     font-size: 36px;
     text-shadow: 2px 2px #d6d6d6;
 }
@@ -38,12 +37,4 @@
     .gradationBtn {
         cursor: pointer;
     }
-}
-
-/* Font */
-@font-face {
-    font-family: 'Middleschool_student';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_08@1.0/Middleschool_student.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 }

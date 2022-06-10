@@ -39,7 +39,6 @@
 
     font-size: 36px;
     line-height: 25vh;
-    font-weight: bolder;
 }
 
 .pinkNoSelected {
@@ -69,17 +68,9 @@
     border: none;
     resize: none;
 
-    font-family: 'Middleschool_student';
     font-size: 36px;
     text-align: center;
     line-height: 25vh;
-}
-
-@font-face {
-    font-family: 'Middleschool_student';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_08@1.0/Middleschool_student.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 }
 
 /* Interaction Media Hover */

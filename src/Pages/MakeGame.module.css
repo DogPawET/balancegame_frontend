@@ -6,12 +6,10 @@
 
     min-height: 100vh;
     
-    font-family: 'Middleschool_student';
 }
 
 .title {
     font-size: 50px;
-    font-weight: bolder;
     text-align: center;
 }
 
@@ -41,7 +39,6 @@
 
 .versus {
     font-size: 24px;
-    font-weight: bolder;
 }
 
 /* Button Div */
@@ -53,7 +50,6 @@
 }
 
 .btn {
-    font-family: 'Middleschool_student';
     font-size: 24px;
     color: white;
     width: 25%;
@@ -87,12 +83,4 @@
         
         cursor: pointer;
     }
-}
-
-/* Font */
-@font-face {
-    font-family: 'Middleschool_student';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/naverfont_08@1.0/Middleschool_student.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
 }
