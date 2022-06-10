@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Layout from '../Components/Shared/Layout';
 import trophy from '../Sources/trophy.png';
 import styles from '../Styles/LeaderBoard.module.css';
@@ -8,12 +8,16 @@ import GradationButton from '../Components/Shared/GradationButton';
 import axios from 'axios';
 
 const LeaderBoard = () => {
-    // 🚨 state로 받아올 것 : uuid
+    const navigate = useNavigate();
     const location = useLocation();
 
     const [hostName, setHostName] = useState("");
     const [guest, setGuest] = useState([]);
     const [count, setCount] = useState(0);
+
+    const goHostLogin = () => {
+        navigate("/");
+    }
 
     useEffect(() => {
         axios.get(`http://localhost:80/api/${location.state.uuid}/leader-board`)
@@ -25,7 +29,7 @@ const LeaderBoard = () => {
             setCount(response.data.guest.length);
         })
         .catch((error) => { console.log(error); })
-    }, []);
+    }, [location.state.uuid]);
 
     return (
         <Layout isHeaderOn={true}>
@@ -54,7 +58,7 @@ const LeaderBoard = () => {
                         </div>
                     </div>
                 </div>
-                <GradationButton text="내 퀴즈 만들어보기"/>
+                <GradationButton text="내 퀴즈 만들어보기" onClick={goHostLogin}/>
             </div>
         </Layout>
     );

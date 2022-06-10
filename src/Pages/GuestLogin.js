@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import { useForm} from "react-hook-form";
 import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
 import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
-import { Input } from 'antd';
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { guestInfoState, guestGameState } from "../_recoil/state";
 import axios from "axios";
 
 const GuestLogin = () => {
+    const { register, handleSubmit, watch, formState: {errors} } = useForm();
     const navigate = useNavigate();
     const params = useParams();
+    const hostId = params.uuid;
 
-    const [hostId, setHostId] = useState(params.uuid);
     const [hostName, setHostName] = useState("hostName");
-    const [name, setName] = useState("");
-    const [guestInfo, setGuestInfo] = useRecoilState(guestInfoState);
-    const [guestGame, setGuestGame] = useRecoilState(guestGameState);
+    const setGuestInfo = useSetRecoilState(guestInfoState);
+    const setGuestGame = useSetRecoilState(guestGameState);
 
-    const getInfos = async () => {
+    const getInfos = useCallback(async () => {
         await axios.get(`http://localhost:80/api/${hostId}/questions`)
         .then ((response) => {
             console.log(response);
@@ -33,17 +33,17 @@ const GuestLogin = () => {
         .catch ((error) => {
             console.log(error);
         });
-    }
+    }, [hostId, setGuestGame]);
 
     const onClickGame = () => {
         setGuestInfo({
-            name: name,
+            name: watch("name"),
         });
-        navigate("/dogame");
+        navigate(`/play/${hostId}`);
     }
 
     const onClickRank = () => {
-        navigate("/leaderboard", {
+        navigate(`/leader-board/${hostId}`, {
             state: {
                 uuid: params.uuid,
             }
@@ -52,24 +52,30 @@ const GuestLogin = () => {
 
     useEffect(() => {
         getInfos();
-    }, []);
+    }, [getInfos]);
 
     return (
         <Layout isHeaderOn={false}>
-            <div className={styles[`login-wrapper`]}>
-                <div className={styles[`login-title`]}>
-                    <img className={styles[`login-logo`]} src={logo} alt="balance game logo"/>
-                    <span className={styles[`main-title`]}>
+            <div className={styles.wrapper}>
+                <div className={styles[`title-div`]}>
+                    <img className={styles.logo} src={logo} alt="balance game logo"/>
+                    <span className={styles.title}>
                         너와 나의
                         <br/>
                         밸런스 지수 TEST
                     </span>
-                    <span className={styles[`sub-title`]}>{hostName}님과의 밸런스 지수는?!</span>
+                    <span className={styles.text}>{hostName}님과의 밸런스 지수는?!</span>
                 </div>
-                <div className={styles[`login-content`]}>
-                    <span className={styles[`content-text`]}>이름을 입력하세요</span>
-                    <Input style={{ width: 200 }} onChange={(e) => {setName(e.target.value);}} placeholder="이름..." />
-                    <GradationButton text="문제풀기" onClick={onClickGame}/>
+                <div className={styles[`content-div`]}>
+                    <form className={styles.form} onSubmit={handleSubmit(onClickGame)}>
+                        <p className={styles.text}>이름을 입력하세요</p>
+                        <input {...register("name", {required: true})}
+                            className={styles.input}
+                            placeholder="이름..."
+                        />
+                        {errors.name && <p className={`${styles.text} ${styles.errors}`}>이름이 입력되지 않았습니다</p>}
+                        <GradationButton text="문제풀기"/>
+                    </form>
                     <GradationButton text="순위보기" onClick={onClickRank}/>
                 </div>
             </div>

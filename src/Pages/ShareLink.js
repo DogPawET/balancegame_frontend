@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Layout from '../Components/Shared/Layout';
+import GradationButton from "../Components/Shared/GradationButton";
 import styles from '../Styles/ShareLink.module.css';
 import axios from "axios";
-import { useRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { hostInfoState, indexState, hostGameState } from "../_recoil/state";
 
 const ShareLink = () => {
-    const [hostInfo, setHostInfo] = useRecoilState(hostInfoState);
-    const [index, setIndex] = useRecoilState(indexState);
-    const [hostGame, setHostGame] = useRecoilState(hostGameState);
+    const hostInfo = useRecoilValue(hostInfoState);
+    const hostGame = useRecoilValue(hostGameState);
 
+    const setIndex = useSetRecoilState(indexState);
+    
     const [showCopied, setShowCopied] = useState(false);
 
     const hideCopied = () => {
@@ -22,7 +24,7 @@ const ShareLink = () => {
         setTimeout(hideCopied, 2000);
     }
 
-    const postGame = async () => {
+    const postGame = useCallback(async () => {
         axios.post("http://localhost:80/api/balanceGame", {
             answers: hostGame.answers,
             questions: hostGame.questions,
@@ -33,11 +35,11 @@ const ShareLink = () => {
         }).catch ((error) => {
             console.log(error);
         });
-    }
+    }, [hostGame.answers, hostGame.questions, hostInfo.uuid, setIndex]);
 
     useEffect(() => {
         postGame();
-    }, []);
+    }, [postGame]);
 
     return (
         <Layout isHeaderOn={true}>
@@ -53,22 +55,18 @@ const ShareLink = () => {
                             {`http://localhost:3000/balance-game/${hostInfo.uuid}`}
                         </span>
                     </div>
-                    {showCopied ? 
+                    
+                    <CopyToClipboard text={`http://localhost:3000/balance-game/${hostInfo.uuid}`}>
+                        <GradationButton text="링크복사" onClick={alertCopied} />
+                    </CopyToClipboard>
+                </div>
+                {showCopied ? 
                     <span className={`${styles.description} ${styles.copiedText}`}>
                         링크가 복사되었습니다 🙌
                     </span>
                     :
                     null
-                    }
-                    <CopyToClipboard text={`http://localhost:3000/balance-game/${hostInfo.uuid}`}>
-                        <button className={styles.gradationBtn} onClick={alertCopied}>
-                            <span className={styles.btnText}>
-                                링크복사 
-                            </span>
-                        </button>
-                    </CopyToClipboard>
-                </div>
-
+                }
             </div>
         </Layout>
     );

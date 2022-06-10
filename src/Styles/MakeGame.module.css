@@ -5,12 +5,12 @@
     justify-content: space-around;
 
     min-height: 100vh;
-    
+    padding: 5vh;
 }
 
 .title {
-    font-size: 50px;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 .numberDiv {
@@ -19,6 +19,7 @@
     align-items: center;
     justify-content: space-around;
 
+    margin-bottom: 20px;
 }
 
 /* Question Div */
@@ -29,11 +30,9 @@
     justify-content: space-around;
     
     min-height: 75vh;
-
-    font-size: 24px;
 }
 
-.skip:link {
+.text:link {
     color: #a6a6a6;
 }
 
@@ -53,8 +52,8 @@
     font-size: 24px;
     color: white;
     width: 25%;
-    padding: 1%;
-    margin: 0 1%; 
+    padding: 5px;
+    margin: 20px 5px 0 5px; 
     border: none;
 }
 
@@ -66,15 +65,64 @@
     background-color: #a6a6a6;
 }
 
-/* Interaction Media*/
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 1025px) {
     .title {
+        font-size: 36px;
+    }
+
+    .text {
+        font-size: 24px;
+    }
+
+    .numberDiv {
         font-size: 24px;
     }
 }
 
+@media screen and (max-width: 1024px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .numberDiv {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 28px;
+    }
+    
+    .text {
+        font-size: 16px;
+    }
+
+    .numberDiv {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+    
+    .text {
+        font-size: 12px;
+    }
+
+    .numberDiv {
+        font-size: 12px;
+    }
+}
+
 @media (hover: hover) {
-    .skip:hover {
+    .text:hover {
         color: black;
     }
     

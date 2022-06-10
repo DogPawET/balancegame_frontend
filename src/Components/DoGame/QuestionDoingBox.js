@@ -11,7 +11,7 @@ const QuestionDoingBox = ({isFormer, thisSelected, anotherSelected, setThisSelec
     return (
         <div className={`${styles.questionBox} ${isFormer ? styles.pinkBox : styles.blueBox}`}>
             <div className={styles.wrapperBox}>
-                <span className={`${styles.defaultBox}
+                <span className={`${styles.defaultBox} ${styles.mainText}
                 ${isFormer && !thisSelected && styles.pinkNoSelected}
                 ${isFormer && thisSelected && styles.pinkYesSelected}
                 ${!isFormer && !thisSelected && styles.blueNoSelected}

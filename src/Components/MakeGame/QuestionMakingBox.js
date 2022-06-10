@@ -46,7 +46,7 @@ const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSele
         <div className={`${styles.questionBox} ${isFormer ? styles.pinkBox : styles.blueBox}`}>
             {!editMode ?
             <div className={styles.wrapperBox}>
-                <span className={`${styles.defaultBox}
+                <span className={`${styles.defaultBox} ${styles.mainText}
                 ${isFormer && !thisSelected && styles.pinkNoSelected}
                 ${isFormer && thisSelected && styles.pinkYesSelected}
                 ${!isFormer && !thisSelected && styles.blueNoSelected}
@@ -58,7 +58,7 @@ const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSele
             </div>
             :
             <div className={styles.wrapperBox}>
-                <textarea className={styles.inputBox} placeholder={text} ref={inputRef} onChange={onChange}></textarea>
+                <textarea maxLength="50" className={`${styles.inputBox} ${styles.mainText}`} placeholder={text} ref={inputRef} onChange={onChange}></textarea>
                 <span className={styles.editText} onClick={confirmEdit}>수정 완료하기 ✅</span>
             </div>
             }

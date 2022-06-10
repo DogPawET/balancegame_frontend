@@ -3,12 +3,14 @@ import styles from '../../Styles/Layout.module.css'
 
 const Layout = ({children, isHeaderOn}) => {
     return (
+        <>
+        { isHeaderOn ? <Header /> : null }
         <div className={styles.container}>
-            { isHeaderOn ? <Header /> : null }
             <div className={styles.layout}>
                 {children}
             </div>
         </div>
+        </>
     );
 }
 
