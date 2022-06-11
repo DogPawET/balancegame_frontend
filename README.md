@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# ⚖ Balance Game
+- 밸런스게임이란 **선택하기 어려운 두 가지 선택지 중 자신이 선호하는 한 가지를 무조건 택해야 하는 게임** 입니다.
+- 온라인으로 i) 간단한 테스트를 진행하고 ii) 자신의 결과를 친구들과 공유하기 좋아하는 2030세대의 니즈에 맞춰 개발한 프로젝트 입니다.
+- 자신 또는 상대방이 **중요하게 생각하는 가치**에 대해 돌아볼 수 있습니다 ☺
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Developed By
+- 디자인 1명 / 프론트엔드 1명 / 백엔드 2명
 
-## Available Scripts
+## Tech Stack
+- HTML5
+- CSS3
+- JavasScript
+- React
+- Recoil 
 
-In the project directory, you can run:
+## Install
+`npm install`
 
-### `npm start`
+## Usage
+`npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Main Functions
+*밸런스게임을 생성하는 사람을 <호스트 Host>, 호스트가 생성한 게임을 플레이하는 사람을 <게스트 Guest>라고 칭합니다*
+### 👋 Host Login
+  - 별도의 회원가입 절차 없이 닉네임과 만들고자 하는 문제 개수(3~10개)를 입력하면 로그인할 수 있습니다
+### ✍ Build Game
+  - 로그인 시 입력한 개수 만큼 랜덤 문제(선택지)가 제시됩니다
+  - 문제가 마음에 든다면 바로 자신에게 해당하는 답을 고르고 [다음] 버튼을 눌러 다음 문제로 넘어갑니다
+  - 랜덤으로 주어진 문제가 마음에 들지 않는다면
+    - [이 문제 건너뛰기] 기능을 사용하여 다른 랜덤 문제를 볼 수 있습니다
+    - 또는 호스트가 직접 선택지를 수정하여 문제를 출제할 수도 있습니다
+  - [이전] 버튼을 누르면 이전 문제들에 대해 답을 고른 기록이 남아 있으며 이를 수정할 수도 있습니다
+### 🔗 Share Link
+  - 모든 문제를 출제하고 나면 친구들에게 공유할 수 있는 링크가 생성되며 이를 복사하여 공유할 수 있습니다
+### 👋 Guest Login
+  - 호스트가 공유한 링크를 통해 간단하게 닉네임만 입력하여 로그인하면 호스트가 생성한 밸런스게임을 플레이할 수 있습니다
+### ✍ Play Game
+  - 자신에게 해당하는 답을 고르고 [다음] 버튼을 눌러 다음 문제로 넘어갑니다
+  - [이전] 버튼을 누르면 이전 문제들에 대해 답을 고른 기록이 남아 있으며 이를 수정할 수도 있습니다
+### ✅ Check Result
+  - 모든 문제에 대한 응답을 마치면, 호스트의 선택 결과와 게스트 자신의 선택 결과를 비교하여 보여주는 표를 확인할 수 있습니다
+  - 호스트의 선택과 게스트 자신의 선택이 얼마나 일치하는지 확인할 수 있습니다.
+### 🏆 Check Leaderboard
+  - 호스트와 유사하게 답을 고른 게스트 순으로 제공되는 리더보드를 확인할 수 있습니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Demo Video
