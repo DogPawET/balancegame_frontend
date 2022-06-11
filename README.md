@@ -44,3 +44,4 @@
   - 호스트와 유사하게 답을 고른 게스트 순으로 제공되는 리더보드를 확인할 수 있습니다.
 
 ## Demo Video
+https://user-images.githubusercontent.com/59408502/173205351-b00d3f79-3e1b-4564-a377-93a6c3b47e13.mp4
