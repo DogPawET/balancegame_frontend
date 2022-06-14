@@ -4,14 +4,10 @@ import Layout from '../Components/Shared/Layout';
 import GradationButton from "../Components/Shared/GradationButton";
 import styles from '../Styles/ShareLink.module.css';
 import axios from "axios";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { hostInfoState, indexState, hostGameState } from "../_recoil/state";
+import { useSelector } from "react-redux";
 
 const ShareLink = () => {
-    const hostInfo = useRecoilValue(hostInfoState);
-    const hostGame = useRecoilValue(hostGameState);
-
-    const setIndex = useSetRecoilState(indexState);
+    const { uuid, name, questions, answers } = useSelector((state) => state.host);
     
     const [showCopied, setShowCopied] = useState(false);
 
@@ -26,16 +22,16 @@ const ShareLink = () => {
 
     const postGame = useCallback(async () => {
         axios.post("http://localhost:80/api/balanceGame", {
-            answers: hostGame.answers,
-            questions: hostGame.questions,
-            uuid: hostInfo.uuid,
+            answers,
+            questions,
+            uuid,
         })
         .then((response) => {
-            setIndex(1);
+            console.log(response);
         }).catch ((error) => {
             console.log(error);
         });
-    }, [hostGame.answers, hostGame.questions, hostInfo.uuid, setIndex]);
+    }, [uuid, questions, answers]);
 
     useEffect(() => {
         postGame();
@@ -44,7 +40,7 @@ const ShareLink = () => {
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.shareLink}>
-                <span className={styles.title}>💖 {hostInfo.name}님의 밸런스게임이 완성 되었습니다 💖</span>
+                <span className={styles.title}>💖 {name}님의 밸런스게임이 완성 되었습니다 💖</span>
                 <span className={styles.description}>친구들에게도 공유해보세요!
                     <br/>링크에서 친구들의 순위도 확인할 수 있습니다 😉
                 </span>
@@ -52,11 +48,11 @@ const ShareLink = () => {
                 <div className={styles.wrapperBox}>
                     <div className={styles.linkBox}>
                         <span className={`${styles.description} ${styles.linkText}`}>
-                            {`http://localhost:3000/balance-game/${hostInfo.uuid}`}
+                            {`http://localhost:3000/balance-game/${uuid}`}
                         </span>
                     </div>
                     
-                    <CopyToClipboard text={`http://localhost:3000/balance-game/${hostInfo.uuid}`}>
+                    <CopyToClipboard text={`http://localhost:3000/balance-game/${uuid}`}>
                         <GradationButton text="링크복사" onClick={alertCopied} />
                     </CopyToClipboard>
                 </div>
