@@ -6,7 +6,7 @@ import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
 import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
-import { login } from "../reducer/host";
+import { hostLogin } from "../reducer/host";
 import { useDispatch} from "react-redux";
 import QuestionList from "../QuestionList";
 
@@ -30,7 +30,7 @@ const HostLogin = () => {
                 questions.push(randomQuestion);
             }
 
-            dispatch(login({
+            dispatch(hostLogin({
                 uuid: response.data.uuid,
                 name: watch("name"),
                 questionCount: watch("count"),

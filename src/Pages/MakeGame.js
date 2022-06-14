@@ -104,10 +104,10 @@ const MakeGame = () => {
                 <div className={styles.questionDiv}>
                     <p className={styles.skip} onClick={onSkip}>이 문제 건너뛰기 👉</p> 
                     <QuestionMakingBox key={index} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
-                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={questions[index-1][0]}/>
+                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={questions[index-1]["firstOption"]}/>
                     <span className={styles.versus}>VS</span>
                     <QuestionMakingBox key={index+10} isFormer={false} thisSelected={latterSelected} anotherSelected={formerSelected}
-                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={questions[index-1][1]}/>
+                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={questions[index-1]["secondOption"]}/>
                 </div>
 
                 <div className={styles.buttonDiv}>

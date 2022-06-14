@@ -5,40 +5,39 @@ import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
 import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
-import { useSetRecoilState } from "recoil";
-import { guestInfoState, guestGameState } from "../_recoil/state";
+import { useDispatch } from "react-redux";
+import { guestLogin, setGame } from "../reducer/guest";
 import axios from "axios";
 
 const GuestLogin = () => {
     const { register, handleSubmit, watch, formState: {errors} } = useForm();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     const params = useParams();
     const hostId = params.uuid;
-
-    const [hostName, setHostName] = useState("hostName");
-    const setGuestInfo = useSetRecoilState(guestInfoState);
-    const setGuestGame = useSetRecoilState(guestGameState);
-
+    const [hostName, setHostName] = useState("");
+    
     const getInfos = useCallback(async () => {
         await axios.get(`http://localhost:80/api/${hostId}/questions`)
         .then ((response) => {
             console.log(response);
-            setGuestGame({
-                hostId: hostId,
+            setHostName(response.data.hostName);
+            dispatch(setGame({
+                hostId,
                 hostName: response.data.hostName,
                 questions: response.data.questions,
-            });
-            setHostName(response.data.hostName);
+            }));
         })
         .catch ((error) => {
             console.log(error);
         });
-    }, [hostId, setGuestGame]);
+    }, [hostId, dispatch]);
 
     const onClickGame = () => {
-        setGuestInfo({
+        dispatch(guestLogin({
             name: watch("name"),
-        });
+        }));
         navigate("/play");
     }
 

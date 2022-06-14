@@ -32,7 +32,7 @@ const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSele
         if (value) {
             let updated = [...questions];
             let question = {...updated[index-1]};
-            isFormer ? question[0] = value : question[1] = value;
+            isFormer ? question["firstOption"] = value : question["secondOption"] = value;
             updated.splice(index-1, 1, question);
             dispatch(setQuestions(updated));
         }

@@ -21,6 +21,7 @@ const ShareLink = () => {
     }
 
     const postGame = useCallback(async () => {
+        console.log(questions);
         axios.post("http://localhost:80/api/balanceGame", {
             answers,
             questions,

@@ -7,14 +7,14 @@ const hostInfo = {
     index: 1,
 }
 
-const LOGIN = "LOGIN";
+const HOST_LOGIN = "HOST_LOGIN";
 const SET_QUESTIONS = "SET_QUESTIONS";
 const SET_ANSWERS = "SET_ANSWERS";
 const SET_INDEX = "SET_INDEX";
 
-export const login = (data) => {
+export const hostLogin = (data) => {
     return {
-        type: LOGIN,
+        type: HOST_LOGIN,
         data,
     };
 };
@@ -30,19 +30,19 @@ export const setAnswers = (data) => {
     return {
         type: SET_ANSWERS,
         data,
-    }
-}
+    };
+};
 
 export const setIndex = (data) => {
     return {
         type: SET_INDEX,
         data,
-    }
-}
+    };
+};
 
 const host = (state = hostInfo, action) => {
     switch(action.type) {
-        case LOGIN:
+        case HOST_LOGIN:
             return {
                 ...state,
                 uuid: action.data.uuid,
@@ -67,7 +67,7 @@ const host = (state = hostInfo, action) => {
             };
         default:
             return state;
-    }
-}
+    };
+};
 
 export default host;
