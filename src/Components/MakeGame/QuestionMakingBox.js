@@ -1,11 +1,11 @@
 import styles from '../../Styles/QuestionMakingBox.module.css';
 import { useState, useRef, useLayoutEffect } from 'react';
-import { useRecoilState } from "recoil";
-import { indexState, questionListState } from "../../_recoil/state";
+import { useDispatch, useSelector } from "react-redux";
+import { setQuestions } from "../../reducer/host";
 
 const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSelected, setAnotherSelected, text}) => {
-    const [index, setIndex] = useRecoilState(indexState);
-    const [questionList, setQuestionList] = useRecoilState(questionListState);
+    const { index, questions } = useSelector((state) => state.host);
+    const dispatch = useDispatch();
 
     const [value, setValue] = useState("");
     const [editMode, setEditMode] = useState(false);
@@ -30,12 +30,11 @@ const QuestionMakingBox = ({isFormer, thisSelected, anotherSelected, setThisSele
 
     const confirmEdit = () => {
         if (value) {
-            let questions = [...questionList];
-            let question = {...questions[index-1]};
+            let updated = [...questions];
+            let question = {...updated[index-1]};
             isFormer ? question[0] = value : question[1] = value;
-            questions.splice(index-1, 1, question);
-            console.log(questions);
-            setQuestionList(questions);
+            updated.splice(index-1, 1, question);
+            dispatch(setQuestions(updated));
         }
         
 

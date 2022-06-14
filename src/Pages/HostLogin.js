@@ -6,16 +6,14 @@ import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
 import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
-import { useSetRecoilState } from "recoil";
-import { hostInfoState, questionListState } from "../_recoil/state";
+import { login } from "../reducer/host";
+import { useDispatch} from "react-redux";
 import QuestionList from "../QuestionList";
-
 
 const HostLogin = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const setHostInfo = useSetRecoilState(hostInfoState);
-    const setQuestionList = useSetRecoilState(questionListState);
+    const dispatch = useDispatch();
 
     const onSubmit = async () => {
         await axios.post("http://localhost:80/api/host", {
@@ -23,12 +21,6 @@ const HostLogin = () => {
             questionNumber: watch("count"),
         })
         .then((response) => {
-            setHostInfo({
-                uuid: response.data.uuid,
-                name: watch("name"),
-                questionCount: watch("count"),
-                type: "host",
-            })
 
             let questions = [];
             const indexes = Array(45).fill().map((v, i) => i);
@@ -37,8 +29,14 @@ const HostLogin = () => {
                 const randomQuestion = QuestionList[indexes.splice(randomIdx, 1)[0]];
                 questions.push(randomQuestion);
             }
-            setQuestionList(questions);
-            
+
+            dispatch(login({
+                uuid: response.data.uuid,
+                name: watch("name"),
+                questionCount: watch("count"),
+                questions: questions,
+            }));
+
             navigate("/build");
         })
         .catch((error) => { console.log(error.response); })
