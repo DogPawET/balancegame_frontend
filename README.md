@@ -11,7 +11,8 @@
 - CSS3
 - JavasScript
 - React
-- Recoil 
+- Recoil
+- Redux
 
 ## Install
 `npm install`
