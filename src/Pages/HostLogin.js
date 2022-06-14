@@ -7,7 +7,7 @@ import logo from '../Sources/logo.png';
 import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
 import { hostLogin } from "../reducer/host";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import QuestionList from "../QuestionList";
 
 const HostLogin = () => {

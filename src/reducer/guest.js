@@ -11,8 +11,8 @@ const guestInfo = {
 
 const GUEST_LOGIN = "GUEST_LOGIN";
 const SET_GAME = "SET_GAME";
-const SET_ANSWERS = "SET_ANSWERS";
-const SET_INDEX = "SET_INDEX";
+const SET_GUEST_ANSWERS = "SET_GUEST_ANSWERS";
+const SET_GUEST_INDEX = "SET_GUEST_INDEX";
 
 export const guestLogin = (data) => {
     return {
@@ -28,16 +28,16 @@ export const setGame = (data) => {
     };
 };
 
-export const setAnswers = (data) => {
+export const setGuestAnswers = (data) => {
     return {
-        type: SET_ANSWERS,
+        type: SET_GUEST_ANSWERS,
         data,
     };
 };
 
-export const setIndex = (data) => {
+export const setGuestIndex = (data) => {
     return {
-        type: SET_INDEX,
+        type: SET_GUEST_INDEX,
         data,
     };
 };
@@ -59,12 +59,12 @@ const guest = (state = guestInfo, action) => {
                     questions: [...action.data.questions],
                 },
             };
-        case SET_ANSWERS:
+        case SET_GUEST_ANSWERS:
             return {
                 ...state,
                 answers: [...action.data],
             };
-        case SET_INDEX:
+        case SET_GUEST_INDEX:
             return {
                 ...state,
                 index: state.index + action.data

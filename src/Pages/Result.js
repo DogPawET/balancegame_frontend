@@ -3,20 +3,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Layout from '../Components/Shared/Layout';
 import GradationButton from "../Components/Shared/GradationButton";
 import styles from "../Styles/Result.module.css";
-import { useRecoilValue } from "recoil";
-import { guestGameState } from "../_recoil/state";
+import { useSelector } from "react-redux";
 
 const Result = () => {
-    const guestGame = useRecoilValue(guestGameState);
-
+    const { game } = useSelector((state) => state.guest);
     const navigate = useNavigate();
     const location = useLocation();
     const result = location.state.result;
 
     const onClickRank = () => {
-        navigate(`/leader-board/${guestGame.hostId}`, {
+        navigate(`/leader-board/${game.hostId}`, {
             state: {
-                uuid: guestGame.hostId,
+                uuid: game.hostId,
             }
         });
     }
@@ -28,12 +26,12 @@ const Result = () => {
                 <p>
                     <span className={`${styles.blue} ${styles[`sub-title`]}`}>{result.score}개</span>
                     <span className={styles[`sub-title`]}>/</span>
-                    <span className={`${styles.pink} ${styles[`sub-title`]}`}>{guestGame.questions.length}문제 중</span>
+                    <span className={`${styles.pink} ${styles[`sub-title`]}`}>{result.questions.length}문제 중</span>
                 </p>
                 <div className={styles.table}>
                     <div className={styles.col}>
                         <p className={styles.header}>문제</p>
-                        {guestGame.questions.map((value, index) => {
+                        {result.questions.map((value, index) => {
                             return (
                                 <div key={index}>
                                     <div className={styles.question}>{value.firstOption}</div>
@@ -45,7 +43,7 @@ const Result = () => {
                     </div>
                     <div className={styles.col}>
                         <p className={styles.header}>{result.hostName}</p>
-                        {location.state.result.hostAnswers.map((value, index) => {
+                        {result.hostAnswers.map((value, index) => {
                             return (
                                 <div key={index}>
                                     {value === 0 ?
@@ -66,7 +64,7 @@ const Result = () => {
                     </div>
                     <div className={styles.col}>
                         <p className={styles.header}>{result.guestName}</p>
-                        {location.state.result.guestAnswers.map((value, index) => {
+                        {result.guestAnswers.map((value, index) => {
                             return (
                                 <div key={index}>
                                     {value ===  0 ?

@@ -5,7 +5,7 @@ import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
 import styles from '../Styles/MakeGame.module.css';
 import { useSelector, useDispatch } from "react-redux";
-import { setIndex, setAnswers, setQuestions } from "../reducer/host";
+import { setHostIndex, setHostAnswers, setQuestions } from "../reducer/host";
 import QuestionList from '../QuestionList';
 
 const MakeGame = () => {
@@ -25,7 +25,7 @@ const MakeGame = () => {
     }
 
     const goPrev = () => {
-        dispatch(setIndex(-1));
+        dispatch(setHostIndex(-1));
     }
 
     const goNext = async () => {
@@ -43,7 +43,7 @@ const MakeGame = () => {
             updated.push(flag);
         }
         console.log(updated);
-        dispatch(setAnswers(updated));
+        dispatch(setHostAnswers(updated));
 
         // 마지막 문제까지 응답한 경우 POST 후 sessionStorage clear 및 sharelink 페이지로 이동
         // console.log("type check", typeof index, typeof questionNumber);
@@ -52,7 +52,7 @@ const MakeGame = () => {
         }
 
         // 다음 문제가 있을 경우 makegame 컴포넌트 새로 렌더링
-        dispatch(setIndex(1));
+        dispatch(setHostIndex(1));
     }
 
     const onSkip = () => {

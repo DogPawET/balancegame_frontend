@@ -9,8 +9,8 @@ const hostInfo = {
 
 const HOST_LOGIN = "HOST_LOGIN";
 const SET_QUESTIONS = "SET_QUESTIONS";
-const SET_ANSWERS = "SET_ANSWERS";
-const SET_INDEX = "SET_INDEX";
+const SET_HOST_ANSWERS = "SET_ANSWERS";
+const SET_HOST_INDEX = "SET_INDEX";
 
 export const hostLogin = (data) => {
     return {
@@ -26,16 +26,16 @@ export const setQuestions = (data) => {
     };
 };
 
-export const setAnswers = (data) => {
+export const setHostAnswers = (data) => {
     return {
-        type: SET_ANSWERS,
+        type: SET_HOST_ANSWERS,
         data,
     };
 };
 
-export const setIndex = (data) => {
+export const setHostIndex = (data) => {
     return {
-        type: SET_INDEX,
+        type: SET_HOST_INDEX,
         data,
     };
 };
@@ -55,12 +55,12 @@ const host = (state = hostInfo, action) => {
                 ...state,
                 questions: [...action.data],
             };
-        case SET_ANSWERS:
+        case SET_HOST_ANSWERS:
             return {
                 ...state,
                 answers: [...action.data],
             };
-        case SET_INDEX:
+        case SET_HOST_INDEX:
             return {
                 ...state,
                 index: state.index + action.data
