@@ -4,90 +4,59 @@ import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionMakingBox from '../Components/MakeGame/QuestionMakingBox';
 import styles from '../Styles/MakeGame.module.css';
-import { useRecoilState, useRecoilValue } from "recoil";
-import { hostInfoState, indexState, hostGameState, makingOptsState, questionListState } from "../_recoil/state";
+import { useSelector, useDispatch } from "react-redux";
+import { setHostIndex, setHostAnswers, setQuestions } from "../reducer/host";
 import QuestionList from '../QuestionList';
 
 const MakeGame = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { name, questionCount, questions, answers, index} = useSelector((state) => state.host);
 
-    const hostInfo = useRecoilValue(hostInfoState);
-    
-    const [index, setIndex] = useRecoilState(indexState);
-    const [hostGame, setHostGame] = useRecoilState(hostGameState);
-    const [makingOpts, setMakingOpts] = useRecoilState(makingOptsState);
-    const [questionList, setQuestionList] = useRecoilState(questionListState);
-    
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
 
     const mapNumber = () =>{
         const numbers = [];
-        for (let i=1; i<=hostInfo.questionCount; i++) {
+        for (let i=1; i<=questionCount; i++) {
             numbers.push(<QuestionNumber key={i} number={i} activated={i === index ? true : false} />)
         }
         return numbers;
     }
 
     const goPrev = () => {
-        setIndex(index-1);
+        dispatch(setHostIndex(-1));
     }
 
-    const goNext = () => {
+    const goNext = async () => {
         // flag 값은 전자를 선택한 경우 0, 후자를 선택한 경우 1
         let flag;
         if (formerSelected) { flag = 0; }
         else { flag = 1; }
 
-        // 현재 문제에 대한 문제 및 응답 저장
-        
-        let updatedOpts = [...makingOpts];
-        if (makingOpts !== null && makingOpts.length >= index) {
-            updatedOpts[index-1] = flag;
-
-            let tempAnswers = [...hostGame.answers];
-            let tempQuestions = [...hostGame.questions];
-            tempAnswers[index-1] = flag;
-            tempQuestions[index-1] = {
-                firstOption: questionList[index-1][0],
-                secondOption: questionList[index-1][1],
-            }
-            setHostGame({
-                answers: tempAnswers,
-                questions: tempQuestions,
-            });
+        // 현재 문제에 대한 응답 저장
+        let updated = [...answers];
+        if (answers !== null && answers.length >= index) {
+            updated[index-1] = flag;
         }
         else {
-            updatedOpts.push(flag);
-            setHostGame({
-                answers: [
-                    ...hostGame.answers,
-                    flag,
-                ],
-                questions: [
-                    ...hostGame.questions,
-                    {
-                        firstOption: questionList[index-1][0],
-                        secondOption: questionList[index-1][1],
-                    }
-                ]
-            });
+            updated.push(flag);
         }
-        setMakingOpts(updatedOpts);
-        console.log(hostGame);
+        console.log(updated);
+        dispatch(setHostAnswers(updated));
 
         // 마지막 문제까지 응답한 경우 POST 후 sessionStorage clear 및 sharelink 페이지로 이동
         // console.log("type check", typeof index, typeof questionNumber);
-        if (index === parseInt(hostInfo.questionCount)) {
+        if (index === questionCount) {
             navigate("/share-link"); // setIndex(1);
         }
 
         // 다음 문제가 있을 경우 makegame 컴포넌트 새로 렌더링
-        setIndex(index+1);
+        dispatch(setHostIndex(1));
     }
 
     const onSkip = () => {
-        let questions = [...questionList];
+        let updated = [...questions];
         while (1) {
             let isValid = true;
             let randomIdx = Math.floor(Math.random() * 45);
@@ -98,16 +67,16 @@ const MakeGame = () => {
                 }
             })
             if (isValid) {
-                questions[index-1] = randomQuestion;
+                updated[index-1] = randomQuestion;
                 break;
             }
         }
-        setQuestionList(questions);
+        dispatch(setQuestions(updated));
     }
 
     useEffect(() => {
-        if (makingOpts !== null && makingOpts.length >= index) { // 이미 응답한 문제일 경우
-            if (makingOpts[index-1] === 0) { // 전자를 선택한 경우
+        if (answers !== null && answers.length >= index) { // 이미 응답한 문제일 경우
+            if (answers[index-1] === 0) { // 전자를 선택한 경우
                 setFormerSelected(true);
                 setLatterSelected(false);
             }
@@ -121,12 +90,12 @@ const MakeGame = () => {
             setFormerSelected(false);
             setLatterSelected(false);
         }
-    }, [index, makingOpts, questionList])
+    }, [index, answers, questions])
 
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.makeGame}>
-                <span className={styles.title}>{hostInfo.name}님만의 밸런스게임 만들기 ✍</span>
+                <span className={styles.title}>{name}님만의 밸런스게임 만들기 ✍</span>
 
                 <div className={styles.numberDiv}>
                     {mapNumber()}
@@ -135,10 +104,10 @@ const MakeGame = () => {
                 <div className={styles.questionDiv}>
                     <p className={styles.skip} onClick={onSkip}>이 문제 건너뛰기 👉</p> 
                     <QuestionMakingBox key={index} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
-                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={questionList[index-1][0]}/>
+                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={questions[index-1]["firstOption"]}/>
                     <span className={styles.versus}>VS</span>
                     <QuestionMakingBox key={index+10} isFormer={false} thisSelected={latterSelected} anotherSelected={formerSelected}
-                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={questionList[index-1][1]}/>
+                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={questions[index-1]["secondOption"]}/>
                 </div>
 
                 <div className={styles.buttonDiv}>

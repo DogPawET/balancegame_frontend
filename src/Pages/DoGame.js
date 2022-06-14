@@ -5,20 +5,16 @@ import Layout from '../Components/Shared/Layout';
 import QuestionNumber from '../Components/GameShared/QuestionNumber';
 import QuestionDoingBox from '../Components/DoGame/QuestionDoingBox';
 import styles from '../Styles/DoGame.module.css';
-import { useRecoilState } from "recoil";
-import { indexState, doingOptsState, guestGameState, guestInfoState } from "../_recoil/state";
+import { useDispatch, useSelector } from "react-redux";
+import { setGuestIndex, setGuestAnswers } from "../reducer/guest";
 
  const DoGame = () => {
-    // 🚨 state로 받아올 것 : guestName 및 밸런스게임 질문 찾기 GET api의 responses (hostName, questions가 담긴 배열)
-    const [index, setIndex] = useRecoilState(indexState);
-    const [doingOpts, setDoingOpts] = useRecoilState(doingOptsState);
-    const [guestGame, setGuestGame] = useRecoilState(guestGameState);
-    const [guestInfo, setGuestInfo] = useRecoilState(guestInfoState);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { game, name, answers, index} = useSelector((state) => state.guest);
 
     const [formerSelected, setFormerSelected] = useState(false);
     const [latterSelected, setLatterSelected] = useState(false);
-
-    const navigate = useNavigate();
 
     const mapNumber = (count, index) => {
         const numbers = [];
@@ -29,17 +25,14 @@ import { indexState, doingOptsState, guestGameState, guestInfoState } from "../_
     }
 
     const goPrev = () => {
-        setIndex(index-1);
+        dispatch(setGuestIndex(-1));
     }
 
-    const postGuest = async (updatedOpts) => {
-        console.log(updatedOpts);
-        console.log(guestInfo.name);
-        console.log(guestGame.hostId);
+    const postGuest = async (updated) => {
         await axios.post("http://localhost:80/api/guest", {
-            answers: updatedOpts,
-            name: guestInfo.name,
-            uuid: guestGame.hostId,
+            answers: updated,
+            name: name,
+            uuid: game.hostId,
         })
         .then((response) => {
             console.log(response);
@@ -58,31 +51,29 @@ import { indexState, doingOptsState, guestGameState, guestInfoState } from "../_
         if (formerSelected) { flag = 0; }
         else { flag = 1; }
 
-        let updatedOpts = [...doingOpts];
-        console.log(doingOpts);
+        let updated= [...answers];
 
         // 현재 문제에 대한 응답 저장
-        if (doingOpts !== null && doingOpts.length >= index) { // 이미 응답한 문제일 경우
-            updatedOpts[index-1] = flag;
+        if (answers !== null && answers.length >= index) { // 이미 응답한 문제일 경우
+            updated[index-1] = flag;
         }
         else { // 처음 응답하는 문제일 경우
-            updatedOpts.push(flag);
+            updated.push(flag);
         }
-        setDoingOpts(updatedOpts);
-        console.log(doingOpts);
+        dispatch(setGuestAnswers(updated));
 
         // 마지막 문제까지 응답한 경우
-        if (index === parseInt(guestGame.questions.length)) {
-            postGuest(updatedOpts);
+        if (index === parseInt(game.questions.length)) {
+            postGuest(updated);
         }
 
         // 다음 문제가 있을 경우 dogame 컴포넌트 새로 렌더링
-        setIndex(index+1);
+        dispatch(setGuestIndex(1));
     }
 
     useEffect(() => {
-        if (doingOpts !== null && doingOpts.length >= index) { // 이미 응답한 문제일 경우
-            if (doingOpts[index-1] === 0) { // 전자를 선택한 경우
+        if (answers !== null && answers.length >= index) { // 이미 응답한 문제일 경우
+            if (answers[index-1] === 0) { // 전자를 선택한 경우
                 setFormerSelected(true);
                 setLatterSelected(false);
             }
@@ -96,23 +87,23 @@ import { indexState, doingOptsState, guestGameState, guestInfoState } from "../_
             setFormerSelected(false);
             setLatterSelected(false);
         }
-    }, [doingOpts, index])
+    }, [answers, index])
 
     return (
         <Layout isHeaderOn={true}>
             <div className={styles.doGame}>
-                <span className={styles.title}>{guestGame.hostName}님과의 밸런스 지수 알아보기 🙄</span>
+                <span className={styles.title}>{game.hostName}님과의 밸런스 지수 알아보기 🙄</span>
 
                 <div className={styles.numberDiv}>
-                    {mapNumber(guestGame.questions.length, index)}
+                    {mapNumber(game.questions.length, index)}
                 </div>
 
                 <div className={styles.questionDiv}>
                     <QuestionDoingBox key={0} isFormer={true} thisSelected={formerSelected} anotherSelected={latterSelected}
-                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={guestGame.questions[index-1]?.firstOption}/>
+                    setThisSelected={setFormerSelected} setAnotherSelected={setLatterSelected} text={game.questions[index-1]?.firstOption}/>
                     <span className={styles.versus}>VS</span>
                     <QuestionDoingBox key={1} isFormer={false} thisSelected={latterSelected} anotherSelected={formerSelected}
-                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={guestGame.questions[index-1]?.secondOption}/>
+                    setThisSelected={setLatterSelected} setAnotherSelected={setFormerSelected} text={game.questions[index-1]?.secondOption}/>
                 </div>
 
                 <div className={styles.buttonDiv}>
