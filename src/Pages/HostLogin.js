@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -6,7 +6,7 @@ import Layout from '../Components/Shared/Layout';
 import logo from '../Sources/logo.png';
 import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
-import { hostLogin } from "../reducer/host";
+import { hostLogin, initHost } from "../reducer/host";
 import { useDispatch } from "react-redux";
 import QuestionList from "../QuestionList";
 
@@ -41,6 +41,10 @@ const HostLogin = () => {
         })
         .catch((error) => { console.log(error.response); })
     }
+
+    useEffect(() => {
+        dispatch(initHost());
+    }, []);
 
     return (
         <Layout isHeaderOn={false}>

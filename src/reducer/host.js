@@ -7,10 +7,17 @@ const hostInfo = {
     index: 1,
 }
 
+const INIT_HOST = "INIT_HOST";
 const HOST_LOGIN = "HOST_LOGIN";
 const SET_QUESTIONS = "SET_QUESTIONS";
 const SET_HOST_ANSWERS = "SET_ANSWERS";
 const SET_HOST_INDEX = "SET_INDEX";
+
+export const initHost = () => {
+    return {
+        type: INIT_HOST,
+    };
+};
 
 export const hostLogin = (data) => {
     return {
@@ -42,6 +49,17 @@ export const setHostIndex = (data) => {
 
 const host = (state = hostInfo, action) => {
     switch(action.type) {
+        case INIT_HOST:
+            localStorage.removeItem("persist:root");
+            return {
+                ...state,
+                uuid: "",
+                name: "",
+                questionCount: 3,
+                questions: [],
+                answers: [],
+                index: 1,
+            }
         case HOST_LOGIN:
             return {
                 ...state,

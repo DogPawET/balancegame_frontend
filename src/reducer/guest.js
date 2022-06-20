@@ -9,10 +9,17 @@ const guestInfo = {
     index: 1,
 }
 
+const INIT_GUEST = "INIT_GUEST";
 const GUEST_LOGIN = "GUEST_LOGIN";
 const SET_GAME = "SET_GAME";
 const SET_GUEST_ANSWERS = "SET_GUEST_ANSWERS";
 const SET_GUEST_INDEX = "SET_GUEST_INDEX";
+
+export const initGuest= () => {
+    return {
+        type: INIT_GUEST,
+    };
+};
 
 export const guestLogin = (data) => {
     return {
@@ -44,6 +51,19 @@ export const setGuestIndex = (data) => {
 
 const guest = (state = guestInfo, action) => {
     switch(action.type) {
+        case INIT_GUEST: 
+            localStorage.removeItem("persist:root");
+            return {
+                ...state,
+                game: {
+                    hostId: "",
+                    hostName: "",
+                    questions: [],
+                },
+                name: "",
+                answers: [],
+                index: 1,
+            }
         case GUEST_LOGIN:
             return {
                 ...state,
