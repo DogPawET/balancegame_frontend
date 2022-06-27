@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "target": "ES6",
+        "outDir": "./dist",
+        "moduleResolution": "Node",
+        "lib": ["ES2015", "DOM", "DOM.Iterable"],
+        "strict": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "jsx": "react-jsx",
+        "allowSyntheticDefaultImports": true,
+    },
+    "include": ["./src/**/*"],
+    "exclude": ["node_modules", "dist"]
+  }
