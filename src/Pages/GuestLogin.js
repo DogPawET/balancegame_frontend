@@ -6,7 +6,7 @@ import logo from '../Sources/logo.png';
 import styles from "../Styles/Login.module.css";
 import GradationButton from '../Components/Shared/GradationButton';
 import { useDispatch } from "react-redux";
-import { guestLogin, setGame } from "../reducer/guest";
+import { guestLogin, setGame, initGuest } from "../reducer/guest";
 import axios from "axios";
 
 const GuestLogin = () => {
@@ -50,6 +50,7 @@ const GuestLogin = () => {
     }
 
     useEffect(() => {
+        dispatch(initGuest());
         getInfos();
     }, [getInfos]);
 
