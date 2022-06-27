@@ -9,10 +9,9 @@
 ## Tech Stack
 - HTML5
 - CSS3
-- JavasScript
+- JavasScript -> TypeScript로 리팩토링 (2022.06.28)
 - React
-- Recoil
-- Redux
+- Recoil -> Redux로 리팩토링 (2022.06.20)
 
 ## Install
 `npm install`
