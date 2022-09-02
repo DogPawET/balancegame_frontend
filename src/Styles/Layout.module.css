@@ -1,0 +1,17 @@
+* {
+    box-sizing: border-box !important;
+}
+
+.container {
+    padding: 5vh 0;
+    background: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+    background-size: cover;
+}
+
+.layout {
+    width: 80vw;
+    min-height: 80vh;
+    margin: 0 auto;
+    box-shadow: 0px 3px 6px gray;
+    background-color: white;
+}

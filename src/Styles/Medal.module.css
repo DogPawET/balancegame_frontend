@@ -1,0 +1,44 @@
+.medal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    width: 90%;
+    
+    font-size: 50px;
+}
+
+.isGold {
+    width: 5vw;
+    margin: 0vh 1vw 1vh 1vw;
+}
+
+.exceptGold {
+    width: 5vw;
+    margin: 5vh 1vw 1vh 1vw;
+}
+
+@media screen and (min-width: 1025px) {
+    .medal {
+        font-size: 32px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .medal {
+        font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .medal {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .medal {
+        font-size: 20px;
+    }
+}

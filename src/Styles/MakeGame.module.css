@@ -1,0 +1,160 @@
+/* Wrapper & Upper Part*/
+.makeGame {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    min-height: 100vh;
+    padding: 5vh;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.numberDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+
+    margin-bottom: 20px;
+}
+
+/* Question Div */
+.questionDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    
+    min-height: 75vh;
+}
+
+.text {
+    color: #a6a6a6;
+}
+
+.skip {
+    color: gray;
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.versus {
+    font-size: 24px;
+}
+
+/* Button Div */
+.buttonDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    font-size: 24px;
+    color: white;
+    width: 25%;
+    padding: 5px;
+    margin: 20px 5px 0 5px; 
+    border: none;
+}
+
+.disabledBtn {
+    background-color: #d9d9d9;
+}
+
+.abledBtn {
+    background-color: #a6a6a6;
+}
+
+@media screen and (min-width: 1025px) {
+    .title {
+        font-size: 36px;
+    }
+    
+    .skip {
+        font-size: 24px;
+    }
+
+    .text {
+        font-size: 24px;
+    }
+
+    .numberDiv {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .skip {
+        font-size: 20px;
+    }
+
+    .text {
+        font-size: 20px;
+    }
+
+    .numberDiv {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 28px;
+    }
+
+    .skip {
+        font-size: 16px;
+    }
+    
+    .text {
+        font-size: 16px;
+    }
+
+    .numberDiv {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+
+    .skip {
+        font-size: 12px;
+    }
+    
+    .text {
+        font-size: 12px;
+    }
+
+    .numberDiv {
+        font-size: 12px;
+    }
+}
+
+@media (hover: hover) {
+    .skip:hover {
+        color: black;
+        cursor: pointer;
+    }
+
+    .text:hover {
+        color: black;
+    }
+    
+    .abledBtn:hover {
+        background-color: black;
+        cursor: pointer;
+    }
+}

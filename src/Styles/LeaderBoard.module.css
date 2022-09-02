@@ -1,0 +1,101 @@
+.leaderBoard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    min-height: 50vh;
+    padding: 5vh;
+}
+
+.trophyImg {
+    width: 5vw;
+    margin: 0 0 2vh 0;
+}
+
+.title {
+    word-break: keep-all;
+    text-align: center;
+}
+
+.wrapperBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 90%;
+    padding: 1vh 1vw 2vh 1vw;
+    margin: 2vh 0vw;
+
+    border: 2px solid #a6a6a6;
+    border-radius: 2%;
+}
+
+.medalDiv {
+    width: 90%;
+
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.line {
+    width: 90%;
+}
+
+.rankDiv {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 90%;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100%/3);
+}
+
+
+@media screen and (min-width: 1025px) {
+    .title {
+        font-size: 36px;
+    }
+
+    .list {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .title {
+        font-size: 32px;
+    }
+
+    .list {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 28px;
+    }
+
+    .list {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .title {
+        font-size: 24px;
+    }
+
+    .list {
+        font-size: 12px;
+    }
+}

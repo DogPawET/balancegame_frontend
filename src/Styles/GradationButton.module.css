@@ -1,0 +1,53 @@
+.gradationBtn {
+    margin: 15px 0 0 0;
+    
+    border: 2px solid white;
+    border-radius: 1vw;
+    box-shadow: 2px 2px 2px #a6a6a6;
+    background: linear-gradient(to bottom right, #ffdfde, #8da4ce);
+
+    color: white;
+    text-shadow: 2px 2px #d6d6d6;
+}
+
+.gradationBtn:active {
+    box-shadow: none;
+}
+
+@media screen and (min-width: 1025px) {
+    .gradationBtn {
+        width: 400px;
+        height: 60px;
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .gradationBtn {
+        width: 400px;
+        height: 60px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .gradationBtn {
+        width: 300px;
+        height: 45px;
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .gradationBtn {
+        width: 200px;
+        height: 27px;
+        font-size: 16px;
+    }
+}
+
+@media (hover: hover) {
+    .gradationBtn {
+        cursor: pointer;
+    }
+}
